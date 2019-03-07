@@ -1,5 +1,5 @@
 # KeplerProject
-An attmept to build a simple typing game using React, Flask and Graphql.
+An attempt to build a simple typing game using React, Apollo, Flask and Graphql.
 
 ## Design Details
  The game has two components. Following are the tools used for the implementation:
