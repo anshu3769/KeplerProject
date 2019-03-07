@@ -6,15 +6,15 @@ An attmept to build a simple typing game using React, Flask and Graphql.
   
   * Front-end
      * [create-react-app](https://github.com/facebook/create-react-app) for builing React UI
-     * [React Apollo] (https://www.apollographql.com/docs/react/essentials/get-started.html) for connection 
+     * [React Apollo](https://www.apollographql.com/docs/react/essentials/get-started.html) for connection 
        with graphql server in back-end
    
   * Back-end
     * [Python Flask](http://flask.pocoo.org/docs/0.12/tutorial/) 
     * Sqlite3 database (in built in Flask)
     * SqlAlchemy driver for database (in built in Flask)
-    * [Graphql] (https://www.howtographql.com/graphql-python/0-introduction/)
-    * [Graphene] (https://github.com/graphql-python/graphene-sqlalchemy) for using Graphql
+    * [Graphql](https://www.howtographql.com/graphql-python/0-introduction/)
+    * [Graphene](https://github.com/graphql-python/graphene-sqlalchemy) for using Graphql with Flask
     
    The front-end consists of single page UI which provides the following functionlality to 
    the user in order:
