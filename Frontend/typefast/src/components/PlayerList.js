@@ -3,47 +3,53 @@ import Player from './Player'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
-const PLAYER_QUERY =  gql`
-  query {
+ export const PLAYER_QUERY =  gql`
+ query {
     players{
-        id
-        name
+        id,
+        firstName,
+        lastName
         }
   }
 `;
 
 class PlayerList extends React.Component {
   render() {
-
     console.log("player list render function")
-    const playerToRender = [
-      {
-        id: '1',
-        name: 'Player 1',
-      },
-      {
-        id: '2',
-        name: 'Player 2',
-      },
-    ]
+   // const playersToRender = [
+   //   {
+   //     id: '1',
+   //     name: 'Player 1',
+   //   },
+   //   {
+   //     id: '2',
+   //     name: 'Player 2',
+   //   },
+   // ]
 
-   // return (
-     // <div>{playersToRender.map(player => <Player key={player.id} player={player} />)}</div>
-    //)
+    // return (
+    //   <div>{playersToRender.map(player => <Player key={player.id} player={player} />)}</div>
+    // )
 
     return (
       <Query query={PLAYER_QUERY}>
         {({ loading, error, data }) => {
-          if(data) console.log("data is there")
-          if (!data || loading) return <div>Fetching</div>
-          console.log("after fetching")
-          if (error) return <div>Error</div>
+          if (!data || loading)
+          {
+            console.log("Loading")
+            return <div>Fetching</div>
+          }
+          else if (error) return <div>Error</div>
+          else if(data)
+          {
+            console.log("DATA")
+            console.log(data)
+          }
 
-
-          const playersToRender = data.players
+          const playerToRender = data.players
           return (
             <div>
-              {playersToRender.map(player => <Player key={player.id} player={player} />)}
+               {playerToRender.map(player => <Player key={player.id} player={player} />)}
             </div>
           )
         }}
