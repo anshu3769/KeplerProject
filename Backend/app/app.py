@@ -10,6 +10,7 @@ from graphqlSchema import schema
 app = Flask(__name__)
 app.debug = True
 
+
 default_query = '''
 {
   allEmployees {
