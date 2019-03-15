@@ -1,0 +1,12 @@
+mutation{
+ createPlayer(firstName:"test3",lastName:"test3",userName:"test3"){
+  player{
+    userName
+  }
+
+}
+}
+
+
+<button type="submit" onClick={this.props.handleRegister}>
+

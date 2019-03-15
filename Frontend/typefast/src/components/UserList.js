@@ -2,24 +2,25 @@ import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 
-export const WORD_QUERY = gql`
+const LIST_USER = gql`
   query {
-    words {
-      word
+    players {
+      userName
     }
   }
 `;
 
-class WordList extends React.Component {
+class UserList extends React.Component {
   render() {
     return (
-      <Query query={WORD_QUERY}>
+      <Query query={LIST_USER}>
         {({loading, error, data}) => {
           if (!data || loading) {
-            console.log('Loading');
+            console.log('Loading users');
             return <div>Fetching</div>;
           } else if (error) return <div>Error</div>;
           else if (data) {
+            console.log('DATA');
             console.log(data);
           }
 
@@ -28,7 +29,7 @@ class WordList extends React.Component {
 
           //This is to call the function on parent which
           //was passed as prop to this component
-          this.props.onLoadComplete(data.words);
+          this.props.onLoadComplete(data.players);
           return <div />;
           //return null
         }}
@@ -37,4 +38,4 @@ class WordList extends React.Component {
   }
 }
 
-export default WordList;
+export default UserList;

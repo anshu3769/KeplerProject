@@ -1,256 +1,364 @@
 import React from 'react';
 import '../styles/App.css';
-import StartButton from './StartButton'
+import StartButton from './StartButton';
 import Timer from './Timer';
-import PlayerList from './PlayerList';
+import CreatePlayer from './Player';
 import WordList from './WordList';
-import { Mutation, Query } from 'react-apollo'
-import gql from 'graphql-tag'
-
-const CREATE_PLAYER = gql`
-  mutation CreatePlayer($firstName:String!,$lastName:String!,$userName:String!){
-    createPlayer(firstName:$firstName,lastName:$lastName,userName:$userName){
-    player{
-      firstName,
-      lastName,
-      userName
-    }
-  }
-  }
-`;
-
-const CreatePlayer = () => {
-  let firstName;
-  let lastName;
-  let userName;
-
-  return (
-    <Mutation mutation={CREATE_PLAYER}>
-      {(createPlayer, { data }) => (
-        <div>
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              createPlayer({ variables: { firstName: firstName.value , lastName: lastName.value, userName:userName.value} });
-              firstName.value = "";
-              lastName.value = "";
-              userName.value = "";
-            }}
-          >
-          <div>
-            <input
-              ref={node => {
-                firstName = node;
-              }}
-            />
-          </div>
-
-          <div>
-            <input
-              ref={node => {
-                lastName = node;
-              }}
-            />
-          </div>
-          <div>
-            <input
-              ref={node => {
-                userName = node;
-              }}
-            />
-          </div>
-            <button type="submit">Register Player</button>
-          </form>
-        </div>
-      )}
-    </Mutation>
-  );
-};
+import UserList from './UserList';
+import UpdateScore from './Score';
 
 class App extends React.Component {
-
-//Constructor...Starts
-  constructor(props){
+  //Constructor...Starts
+  constructor(props) {
     super(props);
     this.state = {
       minutes: '1',
       seconds: '00',
-      text: 'Welcome',
+      text: 'Live',
       view: 'Register',
-      firstName: '' ,
+      firstName: '',
       lastName: '',
-      userName: ''
-
-    }
+      userName: '',
+      //  scores: 0,
+      users: [],
+      value: '',
+      error: '',
+    };
 
     this.secondsRemaining = 0;
     this.intervalHandle = 0;
-    this.inputString = ["a","b","c"];
-    this.index = 0;
-
+    this.inputWords = [];
+    this.index = -1;
+    this.outputWords = [];
+    this.scores = 0;
+    this.timerStared = false;
+    //this.error = '';
   }
-//Constructor...Ends
+  //Constructor...Ends
 
-
-//handleChange...Starts
-  handleChange = (event) => {
-
-      this.setState({value: event.target.value})
+  //calculateScore....Starts
+  calculateScores() {
+    let index = 1;
+    while (index < this.outputWords.length) {
+      console.log('outputWords ', this.outputWords[index]);
+      console.log('inputWords ', this.inputWords[index - 1].word);
+      if (this.outputWords[index] === this.inputWords[index - 1].word)
+        this.scores++;
+      index++;
+    }
   }
-//handleChange...Ends
+  //calculateScore....Ends
 
+  //handleChange...Starts
+  handleChange = event => {
+    //this.state.value = event.target.value
+    this.setState({value: event.target.value});
+  };
+  //handleChange...Ends
 
-//handleFirstNameChange...Starts
-  handleFirstNameChange = (event) => {
+  //handleFirstNameChange...Starts
+  handleFirstNameChange = event => {
+    console.log('firstnamechange');
+    //this.state.firstName = event.target.value;
+    this.setState({firstName: event.target.value});
+    console.log('event.target.value ', event.target.value);
+    console.log('First name ', this.state.firstName);
+  };
+  //handleFirstNameChange...Ends
 
-      this.setState({firstName: event.target.value})
-  }
-//handleFirstNameChange...Ends
+  //handleLastNameChange...Starts
+  handleLastNameChange = event => {
+    console.log('lastnamechange');
+    //this.state.lastName = event.target.value;
+    this.setState({lastName: event.target.value});
+    console.log('Last name ', this.state.lastName);
+  };
+  //handleLastNameChange...Ends
 
-
-//handleLastNameChange...Starts
-  handleLastNameChange = (event) => {
-
-      this.setState({lastName: event.target.value})
-  }
-//handleLastNameChange...Ends
-
-//handleUserNameChange...Starts
+  //handleUserNameChange...Starts
   handleUserNameChange = (event) => {
 
-      this.setState({userName: event.target.value})
-  }
-//handleUserNameChange...Ends
+    //To prevent default rendering behavior
+    event.preventDefault();
 
-
-//handleSubmit...Starts
-  handleSubmit = (event) => {
-
-   //call the create player mutation with the given input
-
-
-      if(this.index !== this.inputString.length)
-      {
+    console.log('handle user name change');
+    console.log('event target user name', this.state.value);
+    if (event.target.value) this.state.userName = event.target.value;
+    //coming from registration
+    else this.state.userName = this.state.value; //coming from returning user
+    console.log(" User name ",this.state.userName)
+    if (this.state.userName === '') {
+      //handles the  case when user  registers with a blank user name
+      //this.error = 'Username should not be blank';
         this.setState({
-          text: this.inputString[this.index]
-        })
-        this.index++
+        view: 'Register',
+        firstName: '',
+        lastName: '',
+        users: [],
+        error: 'Username should not be blank',
+      });
+
+      console.log(" Error ",this.state.error)
+      console.log(" User name ",this.state.userName)
+
+      //this.setState({userName: event.target.value});
+      console.log('user name ', this.state.userName);
+    } else {
+      //Check on event.target.value is to avoid going in this
+      //if condition if the user is first time user. Registration time
+      // event.target.value will have something onChange
+      if (!event.target.value) {
+        //if the returning user is not present in the database.
+        if (this.isUniqueUser()) {
+          console.log('user not registered');
+          //this.state.error = 'Not a registered user!!';
+           this.setState({
+             view: 'Register',
+             error: 'Not a registered user!!',
+             value: ''
+           });
+        } else {
+          //this.error = '';
+          this.setState({
+            view: 'Loading words...',
+            value: '',
+            error:''
+          });
+        }
       }
-     event.preventDefault()
-  }
-//handleSubmit...Ends
+    }
+  };
+  //handleUserNameChange...Ends
 
+  //handleWordSubmit...Starts
+  handleWordSubmit = event => {
+    //call the create player mutation with the given input
 
-//handleRegister...Starts
-  handleRegister = (event) => {
+    console.log('this state value = ', this.state.value);
+    if (this.timerStarted) {
+      if (this.index < this.inputWords.length - 1) {
+        this.index++;
+        console.log('Handle submit if::index = ', this.index);
+        this.outputWords.push(this.state.value);
+        this.setState({
+          text: this.inputWords[this.index].word,
+          value: '',
+          error: ''
+        });
+      } else {
+        this.calculateScores();
+        this.setState({
+          view: 'Score Time',
+          value: '',
+          error: ''
+        });
+      }
 
-    this.setState(
-        {view:'Game',
-        })
-  }
-//handleRegister...Ends
+      // to clear the input box every time. This gives warning though
+      //this.state.value = '';
+      //this.state.error = '';
+    } else {
+      console.log('timer not started');
+      // this.state.error = 'Please start the timer to play';
+      this.setState({
+        view: 'Game',
+        error:'Please start the timer to play'
+      });
+    }
 
+    event.preventDefault();
+  };
+  //handleWordSubmit...Ends
 
-//ticks...Starts
+  //isUniqueUser...starts
+  isUniqueUser = () => {
+    let i;
+    console.log('isUniqueUser');
+    console.log('user = ', this.state.userName);
+    for (i = 0; i < this.state.users.length; i++) {
+      console.log('for loop ', this.state.users[i]);
+      if (this.state.users[i].userName === this.state.userName) {
+        return false;
+      }
+    }
+    return true;
+  };
+  //isUniqueUser...ends
+
+  //handleRegister...Starts
+  handleRegister = () => {
+    console.log('handleRegister');
+
+    console.log('firstName ', this.state.firstName);
+    console.log('lastName ', this.state.lastName);
+    console.log('userName ', this.state.userName);
+
+    if (this.state.userName === '') {
+      //this.error = 'Username should not be blank!!!!';
+      this.setState({
+        view: 'Register',
+        firstName: '',
+        lastName: '',
+        users: [],
+        error: 'Username should not be blank!!!!',
+      });
+    } else if (this.isUniqueUser()) {
+      console.log('new user');
+      //this.error = '';
+      this.setState({
+        view: 'Loading words...',
+        error: '',
+      });
+    } else {
+      //this.error = 'Username already taken!!!!';
+      this.setState({
+        view: 'Register',
+        error: 'Username already taken!!!!',
+      });
+    }
+  };
+  //handleRegister...Ends
+
+  //handleWordList...Starts
+  handleWordList = words => {
+    this.inputWords = words;
+    this.setState({view: 'Game'});
+  };
+  //handleWordList...Ends
+
+  //handleUserList...Starts
+  handleUserList = users => {
+    console.log('handle user list');
+    this.setState({
+      users:users,
+    })
+    //this.state.users = users;
+    console.log(this.state.users.length);
+  };
+  //handleUserList...Ends
+
+  //ticks...Starts
   ticks = () => {
-
-    var min = Math.floor(this.secondsRemaining/60)
-    var sec = this.secondsRemaining
+    var min = Math.floor(this.secondsRemaining / 60);
+    var sec = this.secondsRemaining;
 
     this.setState({
       minutes: min,
-      seconds: sec
-    })
+      seconds: sec,
+    });
 
-    if(min < 10){
-
-      this.setState(
-        {minutes: "0" + min,
-        })
+    if (min < 10) {
+      this.setState({minutes: '0' + min});
     }
 
-    if(sec < 10){
-      this.setState(
-        {seconds: "0" + sec,
-        })
+    if (sec < 10) {
+      this.setState({seconds: '0' + sec});
     }
 
-    if(min === 0 & sec === 0){
-     clearInterval(this.intervalHandle);
+    if ((min === 0) & (sec === 0)) {
+      clearInterval(this.intervalHandle);
+      this.setState({view: 'Score Time'});
     }
 
-    this.secondsRemaining--
+    this.secondsRemaining--;
+  };
+  //ticks..Ends
 
-  }
-//ticks..Ends
-
-
-
-//startContDown...Starts
-  startCountDown = () =>{
- console.log("inside countdown")
-    this.intervalHandle = setInterval(this.ticks,1000);
+  //startContDown...Starts
+  startCountDown = () => {
+    console.log('inside countdown');
+    this.intervalHandle = setInterval(this.ticks, 1000);
     this.secondsRemaining = 10;
+    this.timerStarted = true;
+  };
+  //startCountDown...Ends
 
-  }
-//startCountDown...Ends
-
-
-//render...Starts
+  //render...Starts
   render() {
 
-    if(this.state.view === 'Register'){
-    return (
-      <body>
-        <div class="App">
+    console.log("RENDER with state and error msg", this.state.view + this.state.error)
+
+    if (this.state.view === 'Register') {
+      return (
+        <div className="App">
           <h2>!!!TYPING GAME!!!</h2>
-          <CreatePlayer/>
-          <form onSubmit={this.handleRegister}>
-            <p>
-
-
-            </p>
-            <div>
-              First Name <input type="text" value={this.state.firstName} onChange={this.handleFirstNameChange}/>
-            </div>
-            <div>
-             Last Name  <input type="text" value={this.state.lastName} onChange={this.handleLastNameChange}/>
-            </div>
-            <div>
-              User Name <input type="text" value={this.state.userName} onChange={this.handleUserNameChange}/>
-            </div>
-            <input  style={{marginLeft:10}} type="submit" value="Register"/>
-          </form>
-
-       </div>
-      </body>
-    );
-  }
-
-  else {
-  return (
-      <body>
-        <div class="App">
-          <div float="left">
-            <Timer minutes={this.state.minutes} seconds={this.state.seconds}/>
-            <StartButton startCountDown={this.startCountDown}/>
-          </div>
-          <h2>!!!TYPING GAME!!!</h2>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.value} onChange={this.handleChange}/>
-            <input  style={{marginLeft:10}} type="submit" value="Submit"/>
-          </form>
-
+          <UserList onLoadComplete={this.handleUserList} />
           <div>
-           <WordList/>
-         </div>
-       </div>
-      </body>
-    );
- }
- }
-//render...Ends
+            <h3>{this.state.error}</h3>
+            <h3> New User </h3>
+            <CreatePlayer
+              handleRegister={this.handleRegister}
+              handleFirstName={this.handleFirstNameChange}
+              handleLastName={this.handleLastNameChange}
+              handleUserName={this.handleUserNameChange}
+            />
+            <h3> Returning User</h3>
+            <form onSubmit={this.handleUserNameChange}>
+              <label>
+                User Name
+                <input
+                  type="text"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+        </div>
+      );
+    }
 
+    if (this.state.view === 'Loading words...') {
+      return <WordList onLoadComplete={this.handleWordList} />;
+    }
+    // if (this.state.view === 'Timer') {
+    //   return (
+    //     <div className="App">
+    //       <div float="left">
+    //         <h2>!!!TYPING GAME!!!</h2>
+    //         <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
+    //         <StartButton startCountDown={this.startCountDown} />
+    //       </div>
+    //     </div>
+    //   );
+    // }
+    if (this.state.view === 'Game') {
+      return (
+        <div className="App">
+          <div float="left">
+            <h2>!!!TYPING GAME!!!</h2>
+            <p />
+            <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
+            <StartButton startCountDown={this.startCountDown} />
+          </div>
+          <div>{this.state.text}</div>
+          <form onSubmit={this.handleWordSubmit}>
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+            <input style={{marginLeft: 10}} type="submit" value="Submit" />
+            <div>
+              <h3>{this.state.error}</h3>
+            </div>
+          </form>
+
+          <div />
+        </div>
+      );
+    }
+    if (this.state.view === 'Score Time') {
+      return (
+        <div>
+          <UpdateScore userName={this.state.userName} score={this.scores} />
+          <h1>"You scored " {this.scores}</h1>
+        </div>
+      );
+    }
+  }
+  //render...Ends
 }
 
 export default App;
