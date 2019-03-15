@@ -2,13 +2,23 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+
+#create an engine.
+#NOTE: An sqlalchemy engine manages two things
+# 1. Connection pools (max 5 by default)
+# 2. Dialects which tell the sqlalchemy ORM about which database dialect to use. e.g. sqlite3, postgres etc
 engine = create_engine('sqlite:///database.sqlite3', convert_unicode=True)
+
+
+#Sessions are created to ensure consistency in the database
+#sessionmaker creates a Session class that is used to create a
+#session
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
+# Base clas for our class definitions
 Base = declarative_base()
 Base.query = db_session.query_property()
-
 
 def init_db():
     # import all modules here that might define models so that
@@ -27,9 +37,9 @@ def init_db():
 #    db_session.add(hr)
 
     # Create the fixtures
-    player_1 = Player(first_name='Anshu',last_name='Tomar', user_name='anshu')
+    player_1 = Player(first_name='Anshu',last_name='Tomar', user_name='anshu-1')
     db_session.add(player_1)
-    player_2 = Player(first_name='Bunny', last_name='Tomar',user_name='anshu')
+    player_2 = Player(first_name='Bunny', last_name='Tomar',user_name='anshu-2')
     db_session.add(player_2)
 
     score_1 = Score(value=10,player=player_1)

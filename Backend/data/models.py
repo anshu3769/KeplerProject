@@ -11,12 +11,16 @@ class Player(Base):
     id = Column(Integer,primary_key=True)
     first_name = Column(String)
     last_name = Column(String)
-    user_name = Column(String)
+    user_name = Column(String,  nullable=False, unique=True)
+
+    # to have a relationship with scores
+    scores = relationship('Score')
+
 
 class Score(Base):
     __tablename__ = 'score'
     id = Column(Integer, primary_key=True)
-    player_id = Column(Integer, ForeignKey('player.user_name'))
+    user_name = Column(String, ForeignKey('player.user_name'))
     value = Column(Integer)
     player = relationship(
         Player,
@@ -28,7 +32,7 @@ class TopFiveScore(Base):
     __tablename__ = 'topfivescore'
     id = Column(Integer,primary_key=True)
     score = Column(Integer)
-    player_id = Column(Integer, ForeignKey('player.user_name'))
+    user_name = Column(String, ForeignKey('player.user_name'))
     player = relationship(
         Player,
         backref=backref('topfivescore',

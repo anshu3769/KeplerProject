@@ -2,10 +2,10 @@
 
 from flask import Flask
 
-from database import database as db
+from data import database as db
 from flask_graphql import GraphQLView
 #from database import schema
-from graphqlSchema import schema
+from data import schema
 
 app = Flask(__name__)
 app.debug = True

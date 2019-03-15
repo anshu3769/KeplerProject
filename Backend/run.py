@@ -1,6 +1,6 @@
 from app import app
 from flask_cors import CORS
-from database import database as db
+from data import database as db
 
 if __name__ == '__main__':
     db.init_db()

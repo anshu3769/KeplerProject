@@ -1,8 +1,8 @@
 import graphene
 from graphene import relay
 from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType, utils
-from database import models
-from database import database as db
+from . import models
+from . import database as db
 #from models import Department as DepartmentModel
 #from models import Employee as EmployeeModel
 #from models import Role as RoleModel
@@ -120,10 +120,12 @@ class Query(graphene.ObjectType):
 
     all_players = SQLAlchemyConnectionField(PlayerConnection)
     all_scores = SQLAlchemyConnectionField(ScoresConnection)
-    #top_scores = SQ
     all_small_words = SQLAlchemyConnectionField(WordConnection)
 
 
+
+    # def resolve_all_players(self, info,sort):
+    #     return ['a','b',]
 
 class CreatePlayer(graphene.Mutation):
     class Arguments:
@@ -134,14 +136,19 @@ class CreatePlayer(graphene.Mutation):
     player = graphene.Field(lambda: Player)
 
     def mutate(self, info, first_name, last_name, user_name):
-        player = models.Player(first_name=first_name, last_name=last_name,user_name=user_name)
+        print("###Create Player####")
+        if user_name is "":
+            raise ValueError ("User name can not be empty")
+        else:
+            player = models.Player(first_name=first_name, last_name=last_name,user_name=user_name)
 
-        db.db_session.add(player)
-        db.db_session.commit()
+            db.db_session.add(player)
+            db.db_session.commit()
 
-        return CreatePlayer(player=player)
+            return CreatePlayer(player=player)
 
-class CreateScore(graphene.Mutation):
+
+class UpdateScores(graphene.Mutation):
     class Arguments:
         user_name = graphene.String(required=True)
         user_score = graphene.Int(required=True)
@@ -149,12 +156,55 @@ class CreateScore(graphene.Mutation):
     score = graphene.Field(lambda: Score)
 
     def mutate(self, info, user_name, user_score):
-        score = models.Score(user_name=user_name,user_score=user_score)
+        print("###Update Scores####")
+        player = models.Player.query.filter_by(user_name=user_name).one_or_none()
 
-        db.db_session.add(score)
-        db.db_session.commit()
 
-        return CreateScore(score=score)
+        if player is None:
+            raise ValueError ("Exception:: Player not found")
+        else:
+            score=models.Score(value=user_score)
+
+            #update the score for the player
+            player.scores.append(score)
+
+            db.db_session.add(score)
+            db.db_session.commit()
+
+            return UpdateScores(score=score)
+
+
+
+#class UpdateScore(graphene.Mutation):
+#    class Arguments:
+#        #name = graphene.String(required=True)
+#        user_score = graphene.Int(required=True)
+
+#    score = graphene.Field(lambda: Score)
+
+#    def mutate(self, info):
+#        print("###Create Score####")
+
+#        #user = models.Player.query(userName=user_name)
+#        #if user is None:
+#        #    ##Throw exception
+#        #    print("Exception")
+#        #else:
+#        score = models.Score(score=user_score)
+
+#        db.db_session.add(score)
+#        db.db_session.commit()
+
+#        # updateTopScore = """
+#        #                     mutation updatetopscores(username:$user_name,usercscore:$user_score){
+#        #         topsscores{
+#        #                 username,
+#        #                 score
+#        #         }
+#        #                     }
+#        #         """
+
+#        return UpdateScore(score=score)
 
 class UpdateTopScores(graphene.Mutation):
     class Arguments:
@@ -194,6 +244,10 @@ class CreateWords(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     create_player = CreatePlayer.Field()
+    update_scores = UpdateScores.Field()
+    create_word = CreateWords.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation, types=[Player, Score, Word])
+
+
 #schema = graphene.Schema(query=Query, mutation=Mutation, types=[Department, Employee, Role,Player, Score, Words])
