@@ -45,6 +45,6 @@ score in the TopFiveScore table, this table will be updated.
 2. Run the command "docker-compose up" in the  root directory
 3. The frontend and backend of the application are up and running now.
 4. You can access the backend with the [Backend-Link](http://127.0.0.1:5000/graphql) and the [Frontend-Link](http://127.0.0.1:3000/) 
-     
-  
+
+      
   
