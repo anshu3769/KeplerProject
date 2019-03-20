@@ -1,3 +1,11 @@
+"""
+This module creates SQLAlchemy engine
+and contains a method to initialize the
+database which will be called upon running the
+application.
+
+"""
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker

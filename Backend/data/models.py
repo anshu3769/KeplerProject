@@ -1,3 +1,9 @@
+"""
+This module contains all the models
+required by the application.
+
+"""
+
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, func
 from sqlalchemy.orm import backref, relationship
 

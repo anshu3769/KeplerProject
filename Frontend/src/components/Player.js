@@ -22,66 +22,8 @@ const CREATE_PLAYER = gql`
   }
 `;
 
-// class CreatePlayer extends React.Component {
-//   render() {
-//     let fName = this.props.firstName;
-//     let lName = this.props.lastName;
-//     let uName = this.props.userName;
-
-//     console.log('CreatePlayer:: ', fName);
-//     console.log('CreatePlayer:: ', lName);
-//     console.log('CreatePlayer:: ', uName);
-//     return (
-//       <Mutation
-//         mutation={CREATE_PLAYER}
-//         errorPolicy="all"
-//         onCompleted= {this.props.handleRegister}
-//         // variables={{
-//         //   firstName:"test5",
-//         //   lastName:"test5",
-//         //   userName:"test5"
-//         // }}
-//       >
-//         {(createPlayer, {loading, data, error}) => (
-//           <div>
-//             <form
-//               onSubmit={e => {
-//                 e.preventDefault();
-//                 createPlayer({
-//                   variables: {
-//                     firstName: fName,
-//                     lastName: lName,
-//                     userName: uName,
-//                   },
-//                 });
-//               }}>
-//               <button type="submit">Add Player</button>
-//             </form>
-//           </div>
-//         )}
-//       </Mutation>
-//     );
-//   }
-// }
 
 class CreatePlayer extends React.Component {
-  // componentDidMount() {
-  //   for (let x in this.refs) {
-  //     this.refs[x].onkeypress = e => this.handleKeyPress(e, this.refs[x]);
-  //   }
-  //   this.refs.name.focus();
-  // }
-
-  // handleKeyPress = (e, field) => {
-  //   // If enter key is pressed, focus next input field.
-  //   if (e.keyCode === 13) {
-  //     e.preventDefault();
-  //     let next = this.refs[field.name].nextSibling;
-  //     if (next && next.tagName === 'INPUT') {
-  //       this.refs[field.name].nextSibling.focus();
-  //     }
-  //   }
-  // };
 
   render() {
     let firstName;

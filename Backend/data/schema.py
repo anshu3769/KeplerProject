@@ -1,3 +1,10 @@
+"""
+This module contains all the models (build on
+top of SQLAlchemy), queries and mutations
+required my Graphql.
+
+"""
+
 import graphene
 from graphene import relay
 from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType, utils

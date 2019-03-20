@@ -29,11 +29,11 @@ def create_app():
             graphiql=True),
     )
 
-    @app.teardown_appcontext
+    @flask_app.teardown_appcontext
     def shutdown_session(exception=None):
         db.db_session.remove()
 
-    return app
+    return flask_app
 
 
 if __name__ == "__main__":

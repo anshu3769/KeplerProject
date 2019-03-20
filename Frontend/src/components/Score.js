@@ -2,6 +2,8 @@ import React from 'react';
 import {Mutation} from 'react-apollo';
 import gql from 'graphql-tag';
 
+
+//Update individual player's score
 const UPDATE_SCORE = gql`
   mutation UpdateScores($userName: String!, $userScore: Int!) {
     updateScores(userName: $userName, userScore: $userScore) {
@@ -13,6 +15,7 @@ const UPDATE_SCORE = gql`
   }
 `;
 
+//Update the top five scores
 const UPDATE_TOP_SCORES = gql`
   mutation UpdateTopScores($userName: String!, $userScore: Int!) {
     updateTopScores(userName: $userName, userScore: $userScore) {

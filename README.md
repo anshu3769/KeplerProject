@@ -29,8 +29,8 @@ The user will be able to see over all top five scores and his/her personal score
    The back-end consists of the following tables:
    ###   Table Name      Fields
       1. Player          id, first_name, last_name, user_name(unique_constraint)
-      2. Score           id, player_id, score
-      3. TopFiveScore    id, user_name, score
+      2. Score           id, player_id, value
+      3. TopFiveScore    id, user_name, value
       4. Word            id, word
       
       
@@ -40,8 +40,11 @@ one round of completion, the score will be calculated based on the number of cor
 word that user attempted. The score will be updated in the Score table. If this score is more than the smallest
 score in the TopFiveScore table, this table will be updated.
 
-A player will be allowed 20 attempts at maximum in a day to improve his/her score. 
-
+## How to run the application
+1. Clone the git repository.
+2. Run the command "docker-compose up" in the  root directory
+3. The frontend and backend of the application are up and running now.
+4. You can access the backend with the [Backend-Link](http://127.0.0.1:5000/graphql) and the [Frontend-Link](http://127.0.0.1:3000/) 
      
   
   

@@ -26,9 +26,6 @@ class UserList extends React.Component {
             console.log(data);
           }
 
-          //const wordsToRender = data.words
-          //console.log("wordsToRender ",data.words)
-
           //This is to call the function on parent which
           //was passed as prop to this component
           this.props.onLoadComplete(data.players);
