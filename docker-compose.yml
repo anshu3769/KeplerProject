@@ -1,0 +1,23 @@
+#  docker-compose.yml
+
+
+version: "3"
+
+
+# service that you want to run together
+services:
+
+  # build can be specified as a string containing a path to the build context
+  backend:
+    container_name: flask-app
+    build: ./Backend
+    ports: ['5000:5000']
+    volumes: ['./Backend:/usr/src/Kepler-OnBoarding-Project/Backend']
+    restart: always
+
+  frontend:
+    container_name: react-app
+    build: ./Frontend
+    ports: ['3000:3000']
+    volumes: ['./Frontend:/usr/src/Kepler-OnBoarding-Project/Frontend']
+    restart: always
