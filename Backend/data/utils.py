@@ -5,21 +5,23 @@ import string
 alphabets =  list(string.ascii_lowercase)
 
 def generateWords():
+
     """
     Generate a list of words
     by randomly choosing characters
     from the alphabet set
     input : None
     output: List of words
+
     """
 
-    words = []
-    word = ""
+    words:List[String] = []
+    word:String = ""
 
     #generate 100 words of length 8 characters and store them to a list
     for i in range(100):
         for j in range(7):
-            k = random.randint(0,25)
+            k:Integer = random.randint(0,25)
             word+=alphabets[k]
         words.append(word)
         word = ""
@@ -27,4 +29,4 @@ def generateWords():
     return(words)
 
 
-words = generateWords()
+#words = generateWords()

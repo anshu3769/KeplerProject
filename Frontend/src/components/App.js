@@ -7,16 +7,16 @@ import WordList from './WordList';
 import UserList from './UserList';
 import UpdateScore from './Score';
 
-//The page has four views
-//1. "Register" view where the user registers/login
-//2. "Loading" view where the words get loaded after the user logs in
-//3. "Game" view where the player plays the game.
-//4. "Score" view where the score for the current game are displayed
-
-//<input style={{marginLeft: 10}} type="submit" value="Submit" />
+/*
+ * The page has four views
+ * 1. "Register" view where the user registers/login
+ * 2. "Loading" view where the words get loaded after the user logs in
+ * 3. "Game" view where the player plays the game.
+ * 4. "Score" view where the score for the current game are displayed
+ */
 
 class App extends React.Component {
-  //Constructor...Starts
+  ///////Constructor..starts
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +41,6 @@ class App extends React.Component {
     this.indicesUsedInThisGame = [];
     this.scores = 0;
     this.timerStared = false;
-    //this.error = '';
   }
   //Constructor...Ends
 
@@ -74,7 +73,6 @@ class App extends React.Component {
 
   //handleScoreUpdate..starts
   handleScoreUpdate = event => {
-    console.log('score updated')
     alert('Your scores have been updated');
     //this.setState({view: 'Score Updated'});
   };
@@ -82,7 +80,6 @@ class App extends React.Component {
 
   //handleChange...Starts
   handleChange = event => {
-    //this.state.value = event.target.value
     this.setState({value: event.target.value});
   };
   //handleChange...Ends
@@ -104,20 +101,13 @@ class App extends React.Component {
 
   //handleFirstNameChange...Starts
   handleFirstNameChange = event => {
-    console.log('firstnamechange');
-    //this.state.firstName = event.target.value;
     this.setState({firstName: event.target.value});
-    console.log('event.target.value ', event.target.value);
-    console.log('First name ', this.state.firstName);
   };
   //handleFirstNameChange...Ends
 
   //handleLastNameChange...Starts
   handleLastNameChange = event => {
-    console.log('lastnamechange');
-    //this.state.lastName = event.target.value;
     this.setState({lastName: event.target.value});
-    console.log('Last name ', this.state.lastName);
   };
   //handleLastNameChange...Ends
 
@@ -134,7 +124,6 @@ class App extends React.Component {
     console.log(' User name ', this.state.userName);
     if (this.state.userName === '') {
       //handles the  case when user  registers with a blank user name
-      //this.error = 'Username should not be blank';
       this.setState({
         view: 'Register',
         firstName: '',
@@ -143,11 +132,6 @@ class App extends React.Component {
         error: 'Username should not be blank!!',
       });
 
-      console.log(' Error ', this.state.error);
-      console.log(' User name ', this.state.userName);
-
-      //this.setState({userName: event.target.value});
-      console.log('user name ', this.state.userName);
     } else {
       //Check on event.target.value is to avoid going in this
       //if condition if the user is first time user. Registration time
@@ -155,15 +139,12 @@ class App extends React.Component {
       if (!event.target.value) {
         //if the returning user is not present in the database.
         if (this.isUniqueUser()) {
-          console.log('user not registered');
-          //this.state.error = 'Not a registered user!!';
           this.setState({
             view: 'Register',
             error: 'Not a registered user!!',
             value: '',
           });
         } else {
-          //this.error = '';
           this.setState({
             view: 'Loading',
             value: '',
@@ -177,9 +158,7 @@ class App extends React.Component {
 
   //handleWordSubmit...Starts
   handleWordSubmit = event => {
-    //call the create player mutation with the given input
 
-    console.log('this state value = ', this.state.value);
     //choose a word randomly from the input word list
     let randomIndex = Math.floor(Math.random() * Math.floor(100));
     if (this.timerStarted) {
@@ -202,12 +181,7 @@ class App extends React.Component {
         });
       }
 
-      // to clear the input box every time. This gives warning though
-      //this.state.value = '';
-      //this.state.error = '';
     } else {
-      console.log('timer not started');
-      // this.state.error = 'Please start the timer to play';
       this.setState({
         view: 'Game',
         error: 'Please start the timer to play!!',
@@ -242,7 +216,6 @@ class App extends React.Component {
     console.log('userName ', this.state.userName);
 
     if (this.state.userName === '') {
-      //this.error = 'Username should not be blank!!!!';
       this.setState({
         view: 'Register',
         firstName: '',
@@ -252,13 +225,12 @@ class App extends React.Component {
       });
     } else if (this.isUniqueUser()) {
       console.log('new user');
-      //this.error = '';
       this.setState({
         view: 'Loading',
         error: '',
+        users: this.state.users.push(this.state.userName),
       });
     } else {
-      //this.error = 'Username already taken!!!!';
       this.setState({
         view: 'Register',
         error: 'Username already taken!!!!',
@@ -315,7 +287,6 @@ class App extends React.Component {
         value: '',
         error: '',
       });
-      //this.setState({view: 'Score'});
     }
 
     this.secondsRemaining--;
@@ -333,11 +304,7 @@ class App extends React.Component {
 
   //render...Starts
   render() {
-    console.log(
-      'RENDER with state and error msg',
-      this.state.view + this.state.error,
-    );
-
+    //Register view
     if (this.state.view === 'Register') {
       return (
         <div className="App">
@@ -357,7 +324,7 @@ class App extends React.Component {
               <label>
                 User Name
                 <input
-                  style={{marginLeft:10}}
+                  style={{marginLeft: 10}}
                   type="text"
                   value={this.state.value}
                   onChange={this.handleChange}
@@ -370,25 +337,20 @@ class App extends React.Component {
       );
     }
 
+    //Words Loading view
     if (this.state.view === 'Loading') {
       return <WordList onLoadComplete={this.handleWordList} />;
     }
-    // if (this.state.view === 'Timer') {
-    //   return (
-    //     <div className="App">
-    //       <div float="left">
-    //         <h2>!!!TYPING GAME!!!</h2>
-    //         <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
-    //         <StartButton startCountDown={this.startCountDown} />
-    //       </div>
-    //     </div>
-    //   );
-    // }
+
+    //Game view
     if (this.state.view === 'Game') {
       return (
         <div className="App">
           <div float="left">
-            <h3> Hello {this.state.userName}</h3>
+            <h3>
+              {' '}
+              Hello {this.state.firstName} {this.state.lastName}
+            </h3>
             <h2>!!!TYPING GAME!!!</h2>
             <p />
             <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
@@ -410,38 +372,34 @@ class App extends React.Component {
         </div>
       );
     }
+    //Score view
     if (this.state.view === 'Score') {
       return (
         <div className="App">
-          <h1 style={{textAlign: "center"}}>You scored {this.scores} in this game. </h1>
+          <h1 style={{textAlign: 'center'}}>
+            You scored {this.scores} in this game.{' '}
+          </h1>
           <h2>Hit update if you want to submit this score</h2>
           <UpdateScore
             userName={this.state.userName}
             score={this.scores}
             handleScoreUpdate={this.handleScoreUpdate}
           />
-          <button style={{ marginTop:10, marginRight:10}}type="submit" onClick={this.handleNewGame}>
+          <button
+            style={{marginTop: 10, marginRight: 10}}
+            type="submit"
+            onClick={this.handleNewGame}>
             New Game
           </button>
-          <button style={{marginTop:10, marginLeft:10}} type="submit" onClick={this.handleLogout}>
+          <button
+            style={{marginTop: 10, marginLeft: 10}}
+            type="submit"
+            onClick={this.handleLogout}>
             Logout
           </button>
         </div>
       );
     }
-
-    // if (this.state.view === 'Score Updated') {
-    //   return (
-    //     <div>
-    //       <button value="New Game" type="submit" onClick={this.handleNewGame}>
-    //         New Game
-    //       </button>
-    //       <button value="Logout" type="submit" onClick={this.handleLogout}>
-    //         Logout
-    //       </button>
-    //     </div>
-    //   );
-    // }
   }
   //render...Ends
 }
