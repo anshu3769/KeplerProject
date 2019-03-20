@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
-
+from .utils import generateWords
 
 #create an engine.
 #NOTE: An sqlalchemy engine manages two things
@@ -11,8 +11,7 @@ engine = create_engine('sqlite:///database.sqlite3', convert_unicode=True)
 
 
 #Sessions are created to ensure consistency in the database
-#sessionmaker creates a Session class that is used to create a
-#session
+#sessionmaker creates a Session class that is used to create a session
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
@@ -26,9 +25,11 @@ def init_db():
     # you will have to import them first before calling init_db()
 
     #from .models import Department, Employee, Role
-    from .models import Player, Score, Word
+    from .models import Player, Score, Word, TopFiveScore
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
+
+
 
     # Create the fixtures
 #    engineering = Department(name='Engineering')
@@ -55,12 +56,28 @@ def init_db():
     score_6 = Score(value=60,player=player_2)
     db_session.add(score_6)
 
-    word_1 = Word(word='eat')
-    db_session.add(word_1)
-    word_2 = Word(word='sleep')
-    db_session.add(word_1)
-    word_3 = Word(word='fun')
-    db_session.add(word_3)
+    words  = generateWords()
+
+    for w in words:
+        word = Word(word=w)
+        db_session.add(word)
+
+
+    top_score_1 = TopFiveScore(value=60,player=player_2)
+    db_session.add(top_score_1)
+    top_score_2 = TopFiveScore(value=50,player=player_2)
+    db_session.add(top_score_2)
+    top_score_3 = TopFiveScore(value=40,player=player_2)
+    db_session.add(top_score_3)
+    top_score_4 = TopFiveScore(value=30,player=player_2)
+    db_session.add(top_score_4)
+    top_score_5 = TopFiveScore(value=20,player=player_1)
+    db_session.add(top_score_5)
+
+    #word_2 = Word(word='sleep')
+    #db_session.add(word_1)
+    #word_3 = Word(word='fun')
+    #db_session.add(word_3)
 
 
 #    engineer = Role(name='engineer')

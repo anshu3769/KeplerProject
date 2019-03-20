@@ -31,7 +31,7 @@ class Score(Base):
 class TopFiveScore(Base):
     __tablename__ = 'topfivescore'
     id = Column(Integer,primary_key=True)
-    score = Column(Integer)
+    value = Column(Integer)
     user_name = Column(String, ForeignKey('player.user_name'))
     player = relationship(
         Player,

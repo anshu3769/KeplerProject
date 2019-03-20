@@ -3,9 +3,6 @@ from graphene import relay
 from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType, utils
 from . import models
 from . import database as db
-#from models import Department as DepartmentModel
-#from models import Employee as EmployeeModel
-#from models import Role as RoleModel
 
 class Player(SQLAlchemyObjectType):
     class Meta:
@@ -43,41 +40,6 @@ class TopFiveScore(SQLAlchemyObjectType):
         model = models.TopFiveScore
         #interfaces =  (relay.Node,)
 
-###########################################################
-#
-#class Department(SQLAlchemyObjectType):
-#    class Meta:
-#        model = models.Department
-#        interfaces = (relay.Node, )
-#
-#
-#class DepartmentConnection(relay.Connection):
-#    class Meta:
-#        node = Department
-#
-#
-#class Employee(SQLAlchemyObjectType):
-#    class Meta:
-#        model = models.Employee
-#        interfaces = (relay.Node, )
-#
-#
-#class EmployeeConnections(relay.Connection):
-#    class Meta:
-#        node = Employee
-#
-#
-#class Role(SQLAlchemyObjectType):
-#    class Meta:
-#        model = models.Role
-#        interfaces = (relay.Node, )
-#
-#
-#class RoleConnection(relay.Connection):
-#    class Meta:
-#        node = Role
-#
-#
 #SortEnumEmployee = utils.sort_enum_for_model(models.Employee, 'SortEnumEmployee',
 #    lambda c, d: c.upper() + ('_ASC' if d else '_DESC'))
 
@@ -85,42 +47,70 @@ class TopFiveScore(SQLAlchemyObjectType):
 class Query(graphene.ObjectType):
     node = relay.Node.Field()
 
-    players = graphene.List(Player)
+    #players = graphene.List(Player)
     words = graphene.List(Word)
     top_scores = graphene.List(TopFiveScore)
 
 
-    def resolve_players(self, info, *args):
-        query = Player.get_query(info)
-        print("resolving players#####")
-        return query.all()
+    players = graphene.NonNull(
+        graphene.List(Player),
+        first_name = graphene.String(),
+        last_name = graphene.String(),
+        user_name = graphene.String(),
+    )
+
+    player_scores = graphene.NonNull(
+        graphene.List(Score),
+        user_name = graphene.String(),
+    )
+
+    def resolve_players(self,info, first_name=None, last_name=None,user_name=None, *args):
+
+        #query = Player.get_query(info,first_name,last_name, user_name,*args)
+        query = models.Player.query
+
+        if all(item is None for item in [first_name, last_name, user_name]):
+            players = query.all()
+
+        elif first_name is not None:
+            players = query.filter_by(first_name=first_name)
+
+
+        elif last_name is not None:
+            players = query.filter_by(last_name=last_name)
+
+        elif user_name is not None:
+            players = query.filter_by(user_name=user_name)
+
+        return players
 
     def resolve_words(self, info, *args):
-        query = Word.get_query(info)
+        query = Word.get_query(info,*args)
         print("resolving words#####")
         return query.all()
 
-    def resolve_top_scores(self,info, *args):
-        query = TopFiveScore.get_query(info)
+    def resolve_top_scores(self, info, *args):
+        query = TopFiveScore.get_query(info,*args)
         return query.all()
 
 
-    # Allow only single column sorting
-#    all_employees = SQLAlchemyConnectionField(
-#                EmployeeConnections,
-#        sort=graphene.Argument(
-#            SortEnumEmployee,
-#            default_value=utils.EnumValue('id_asc', models.Employee.id.asc())))
-#    # Allows sorting over multiple columns, by default over the primary key
-#    all_roles = SQLAlchemyConnectionField(RoleConnection)
-#    # Disable sorting over this field
-#    all_departments = SQLAlchemyConnectionField(DepartmentConnection, sort=None)
-#
+    def resolve_player_scores(self,info, user_name=None,*args):
+
+        query = models.Score.query
+
+        if user_name is None:
+            player_scores = query.all()
+
+        else:
+            player_scores = query.filter_by(user_name=user_name)
+
+        return player_scores
 
 
+    # Query by connections
     all_players = SQLAlchemyConnectionField(PlayerConnection)
     all_scores = SQLAlchemyConnectionField(ScoresConnection)
-    all_small_words = SQLAlchemyConnectionField(WordConnection)
+    all_words = SQLAlchemyConnectionField(WordConnection)
 
 
 
@@ -171,60 +161,37 @@ class UpdateScores(graphene.Mutation):
             db.db_session.add(score)
             db.db_session.commit()
 
+            updateTopScores(user_name,user_score)
+
             return UpdateScores(score=score)
 
+#class ScoreInput(graphene.InputObjectType):
+#    user_name = graphene.String(required=True)
+#    user_score = graphene.Int(required=True)
 
-
-#class UpdateScore(graphene.Mutation):
-#    class Arguments:
-#        #name = graphene.String(required=True)
-#        user_score = graphene.Int(required=True)
-
-#    score = graphene.Field(lambda: Score)
-
-#    def mutate(self, info):
-#        print("###Create Score####")
-
-#        #user = models.Player.query(userName=user_name)
-#        #if user is None:
-#        #    ##Throw exception
-#        #    print("Exception")
-#        #else:
-#        score = models.Score(score=user_score)
-
-#        db.db_session.add(score)
-#        db.db_session.commit()
-
-#        # updateTopScore = """
-#        #                     mutation updatetopscores(username:$user_name,usercscore:$user_score){
-#        #         topsscores{
-#        #                 username,
-#        #                 score
-#        #         }
-#        #                     }
-#        #         """
-
-#        return UpdateScore(score=score)
 
 class UpdateTopScores(graphene.Mutation):
     class Arguments:
         user_name = graphene.String(required=True)
         user_score = graphene.Int(required=True)
 
-    score = graphene.Field(lambda: TopFiveScores)
+        #score_data = ScoreInput(required=True)
+
+    score = graphene.Field(lambda: TopFiveScore)
 
     def mutate(self, info, user_name, user_score):
-        current_smallest_top_score = models.TopFiveScores.query.order_by(TopFiveScores.scores).limit(1)
+        print("####update top scores mutation####")
+        current_smallest_top_score = models.TopFiveScore.query.order_by(models.TopFiveScore.value).limit(1)
 
-        if user_score > current_smallest_top_score:
-            current_smallest_top_score.player_id = user_name
-            current_smallest_top_score.score = user_score
+        if user_score > current_smallest_top_score[0].value:
+            score = models.TopFiveScore(value=user_score,user_name=user_name)
 
-        db.db_session.commit()
+            db.db_session.delete(current_smallest_top_score[0])
+            db.db_session.add(score)
 
-        score = models.TopFiveScores.query.all()
+            db.db_session.commit()
 
-        return UpdateScore(score=score)
+            return UpdateTopScores(score=score)
 
 
 
@@ -246,8 +213,29 @@ class Mutation(graphene.ObjectType):
     create_player = CreatePlayer.Field()
     update_scores = UpdateScores.Field()
     create_word = CreateWords.Field()
+    update_top_scores = UpdateTopScores.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation, types=[Player, Score, Word])
 
+#####################
+#Utility function
+#####################
+def updateTopScores(userName,userScore):
+    print("###update top scores###")
+    mutation = '''mutation
+            {
+            updateTopScores
+            (
+                $userName:String!,
+                $userScore:Int!)
+                {
+                    score{
+                        userName
+                        value
+                    }
+                }
+        }'''
 
-#schema = graphene.Schema(query=Query, mutation=Mutation, types=[Department, Employee, Role,Player, Score, Words])
+    schema.execute(mutation,variable_values={'userName':userName, 'userScore':userScore})
+
+
