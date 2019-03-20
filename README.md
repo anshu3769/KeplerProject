@@ -40,7 +40,6 @@ one round of completion, the score will be calculated based on the number of cor
 word that user attempted. The score will be updated in the Score table. If this score is more than the smallest
 score in the TopFiveScore table, this table will be updated.
 
-A player will be allowed 20 attempts at maximum in a day to improve his/her score. 
 
      
   
