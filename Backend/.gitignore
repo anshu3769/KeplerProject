@@ -4,4 +4,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# database
+database.sqlite3
+
 

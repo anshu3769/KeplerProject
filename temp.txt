@@ -1,3 +1,102 @@
+
+The command that works with docker container is
+
+docker container run --net host  kepler-onboarding-project-backend
+
+
+mutation UpdateScores($userName: String!, $userScore: Int!) {
+  updateScores(userName: $userName, userScore: $userScore) {
+    score {
+      userName
+      value
+    }
+  }
+}
+
+mutation M {
+  updateScores(userName: "anshu-1", userScore: 65) {
+    score {
+      userName
+      value
+    }
+  }
+}
+
+mutation M1 {
+  createPlayer(firstName: "newf", userName: "", lastName: "newl") {
+    player {
+      userName
+    }
+  }
+}
+
+query Q {
+  players(firstName: "Anshu") {
+    firstName
+    lastName
+    userName
+  }
+}
+
+query W {
+  words {
+    word
+  }
+}
+
+query S2 {
+  allScores(sort: value_desc) {
+    edges {
+      node {
+        player {
+          userName
+        }
+      }
+    }
+  }
+}
+
+query Q1 {
+  allScores {
+    edges {
+      node {
+        value
+        userName
+      }
+    }
+  }
+}
+
+mutation M3 {
+  updateTopScores(userName: "pk", userScore: 70) {
+    score {
+      userName
+      value
+    }
+  }
+}
+
+query T {
+  topScores {
+    userName
+    value
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################
+
+
 mutation{
  createPlayer(firstName:"test3",lastName:"test3",userName:"test3"){
   player{
@@ -10,3 +109,63 @@ mutation{
 
 <button type="submit" onClick={this.props.handleRegister}>
 
+
+ mutation UpdateScores($userName: String!, $userScore: Int!) {
+    updateScores(userName: $userName, userScore: $userScore) {
+      score {
+        userName
+        value
+      }
+    }
+  }
+
+
+mutation M{
+  updateScores(
+    userName:"anshu-1"
+  	userScore:7){
+    score{
+      userName
+      value
+    }
+  }
+}
+
+mutation M1{
+  createPlayer(firstName:"newf"
+    userName:""
+  lastName:"newl"){
+    player{
+      userName
+    }
+
+  }
+
+}
+query Q{
+  players{
+    userName
+    }
+  }
+
+query W{
+  allSmallWords{
+    edges{
+      node{
+        word
+      }
+    }
+  }
+}
+
+
+query Q1{
+  allScores{
+    edges{
+      node{
+        value
+        userName
+      }
+    }
+  }
+}
