@@ -16,13 +16,15 @@ An attempt to build a simple typing game using React, Apollo, Flask and Graphql.
     * [Graphql](https://www.howtographql.com/graphql-python/0-introduction/)
     * [Graphene](https://github.com/graphql-python/graphene-sqlalchemy) for using Graphql with Flask
     
-   The front-end consists of single page UI which provides the following functionlality to 
+   The front-end consists of multiple views of a single webpage which provides the following functionality to 
    the user in order:
-   * The user is first asked to register in order to play the game.
+   * The user is first asked to register( for new user)/login(returning user) in order to play the game. 
    * Upon registration, users details will be added to the database.
-   * The user can play the game by starting a 1 minute timer displayed on the screen after registration.
-   * During the game, words will appear on the screen and the user will type the word and submit it.
+   * The user can play the game by starting a 1 minute timer displayed on the screen after registration/login.
+   * During the game, words will appear on the screen and the user will type the word and hit enter.
    * Upon timer expiry, the score will be calculated and displayed on the screen of the user.
+   * The user has the choice to submit the scores, if he/she is happy with scores. 
+   * Once a game finishes, option to start a new game or logout will be also be provided.
 
 The user will be able to see over all top five scores and his/her personal scores.
 
