@@ -44,9 +44,9 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
     # Add players
-    player_1 = Player(first_name="Anshu", last_name="Tomar", user_name="anshu-1")
+    player_1 = Player(first_name="Anshu", last_name="Tomar", user_name="Anshu")
     db_session.add(player_1)
-    player_2 = Player(first_name="Bunny", last_name="Tomar", user_name="anshu-2")
+    player_2 = Player(first_name="Bunny", last_name="Tomar", user_name="Bunny")
     db_session.add(player_2)
 
     # Add scores

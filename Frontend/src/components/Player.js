@@ -72,7 +72,7 @@ class CreatePlayer extends React.Component {
                   <label>
                     Last Name
                     <input
-                      style={{marginLeft:10}}
+                      style={{marginLeft:11}}
                       type="text"
                       name="lastname"
                       onChange={this.props.handleLastName}

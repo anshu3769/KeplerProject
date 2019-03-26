@@ -5,7 +5,7 @@ from .. import database
 client = Client(schema)
 database.init_db()
 
-def test_player_firstname_query(snapshot):
+def test_player_firstnames_query(snapshot):
     query= """
         query {
             players {
@@ -15,7 +15,7 @@ def test_player_firstname_query(snapshot):
     """
     snapshot.assert_match(client.execute(query))
 
-def test_player_lastname_query(snapshot):
+def test_player_lastnames_query(snapshot):
     query= """
         query {
             players {
@@ -36,3 +36,24 @@ def test_words_query(snapshot):
     snapshot.assert_match(client.execute(query))
 
 
+def test_player_by_firstname_query(snapshot):
+    query= """
+        query {
+            players(firstName:"Anshu") {
+                firstName
+                lastName
+            }
+        }
+    """
+    snapshot.assert_match(client.execute(query))
+
+def test_player_by_lastname_query(snapshot):
+    query= """
+        query {
+            players(lastName:"Tomar") {
+                firstName
+                lastName
+            }
+        }
+    """
+    snapshot.assert_match(client.execute(query))

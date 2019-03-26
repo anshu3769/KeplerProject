@@ -169,3 +169,92 @@ query Q1{
     }
   }
 }
+
+
+
+
+############################
+query Q{
+  players{
+    firstName
+    userName
+  }
+}
+
+mutation M1{
+  createPlayer(
+    firstName:"Kep"
+    lastName:"Group"
+    userName:"kep"){
+  	player{
+      firstName
+      lastName
+      userName
+    }
+  }
+}
+
+mutation M2{
+  updateScores(userName:"anshu-2" userScore:0){
+    score{
+      userName
+      value
+    }
+  }
+}
+
+query Q1{
+  topScores{
+    userName
+    value
+  }
+}
+
+query Q3{
+topScores{
+    userName
+    value
+  }
+}
+
+query Q2{
+  allScores{
+    edges{
+      node{
+        userName
+        value
+      }
+    }
+  }
+}
+
+mutation M3{
+  updateTopScores(userName:"anshu-1" userScore:50){
+  score{
+    userName
+    value
+  }
+  }
+}
+
+mutation W{
+  createWord(word:"test"){
+    word{
+      word
+    }
+  }
+}
+
+query Words{
+  allWords(first:10){
+    pageInfo{
+      hasNextPage
+    }
+    edges{
+      cursor
+      node{
+        word
+      }
+    }
+  }
+}

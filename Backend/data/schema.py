@@ -1,7 +1,7 @@
 """
 This module contains all the models (build on
-top of SQLAlchemy), queries and mutations
-required my Graphql.
+top of SQLAlchemyObjectType), queries and mutations
+that can be called using Graphql.
 
 """
 
@@ -17,17 +17,20 @@ logger = logging.getLogger(__name__)
 class Player(SQLAlchemyObjectType):
 
     """
-    Class to create Player object for
-    use in queries or mutations.
-    Built on top of underlying Player
-    class from SQLAlchemy.
+    A player class. Inherits from
+    SQLALchemyObjectType.
 
     """
     class Meta:
         model = models.Player
-        interfaces = (relay.Node,)
+        #interfaces = (relay.Node,)
 
 class PlayerConnection(relay.Connection):
+    """
+     A player connection (a list). Used in
+     querying the data using slicing/paginating.
+
+    """
     class Meta:
         node = Player
 
@@ -35,18 +38,21 @@ class PlayerConnection(relay.Connection):
 class Score(SQLAlchemyObjectType):
 
     """
-    Class to create Score object for
-    use in queries or mutations.
-    Built on top of underlying Score
-    class from SQLAlchemy.
+    A Score class. Inherits from
+    SQLAlchemyObjectType.
 
     """
     class Meta:
         model = models.Score
-        interfaces = (relay.Node,)
+        #interfaces = (relay.Node,)
 
 
 class ScoresConnection(relay.Connection):
+    """
+     A score connection(a list). Used in
+     querying the data using slicing/paginating.
+
+    """
     class Meta:
         node = Score
 
@@ -54,17 +60,20 @@ class ScoresConnection(relay.Connection):
 class Word(SQLAlchemyObjectType):
 
     """
-    Class to create Word object for
-    use in queries or mutations.
-    Build on top of underlying Word
-    class from SQLAlchemy.
+    Word class. Inherits from SQLAlchemyObjectType.
 
     """
     class Meta:
         model = models.Word
-        interfaces = (relay.Node,)
+        #interfaces = (relay.Node,)
 
 class WordConnection(relay.Connection):
+    """
+
+     A word connection(a list). Used in
+     querying the data using slicing/paginating.
+
+    """
     class Meta:
         node = Word
 
@@ -73,35 +82,38 @@ class TopFiveScore(SQLAlchemyObjectType):
 
 
     """
-    Class to create TopFiveScore object for
-    use in queries or mutations.
-    Build on top of underlying TopFiveScore
-    object from SQLAlchemy.
+    TopFiveScore class. Inherits from
+    SQLAlchemyObjectType.
 
     """
     class Meta:
         model = models.TopFiveScore
-        interfaces =  (relay.Node,)
+        #interfaces =  (relay.Node,)
 
 
 class Query(graphene.ObjectType):
 
 
     """
-    Class for creating queries thorugh
-    GraphQl
+    Query the databse using GraphQl queries.
+
+
+    NOTE: All resolve methods are static
+    by default. Thus the first argument to
+    the method i.e. self need not to be an
+    actual object instance.
 
     """
     node = relay.Node.Field()
 
-    #players = graphene.List(Player)
     words = graphene.List(Word)
+
     top_scores = graphene.List(TopFiveScore)
 
 
     # First argument is the return type from
     # the resolve_players query. All other are
-    # arguments to the resolve_players function
+    # arguments to the resolve_players method
     #itself.
     players = graphene.NonNull(
         graphene.List(Player),
@@ -122,7 +134,7 @@ class Query(graphene.ObjectType):
                         *args) -> graphene.List(Player):
 
         logger.debug("Resolving Players")
-        #query = Player.get_query(info,first_name,last_name, user_name,*args)
+
         query = models.Player.query
 
         if all(item is None for item in [first_name, last_name, user_name]):
@@ -244,7 +256,8 @@ class UpdateScores(graphene.Mutation):
             db.db_session.add(score)
             db.db_session.commit()
 
-            updateTopScores(user_name,user_score)
+            #updateTopScores(user_name,user_score)
+            UpdateTopScores.mutate(self,info,user_name,user_score)
 
             return UpdateScores(score=score)
 
@@ -252,15 +265,17 @@ class UpdateScores(graphene.Mutation):
 class UpdateTopScores(graphene.Mutation):
 
     """
-    Class to update top scores through
-    graphql mutation.
-    Contains 1) mutate method which is called by
-    the mutations and 2) the arguments passed during
+    Update top scores through graphql mutation.
+    Contains:
+    1) mutate method which is called by
+    the mutations
+    2) the arguments passed during
     the mutation
+    3) score attribute which is output of the mutation
 
     """
     class Arguments:
-        user_name = graphene.String(required=True)
+        user_name = graphene.String(description="user name the player provided while registration", required=True)
         user_score = graphene.Int(required=True)
 
         #score_data = ScoreInput(required=True)
@@ -308,7 +323,7 @@ class CreateWords(graphene.Mutation):
         db.db_session.add(word)
         db.db_session.commit()
 
-        return CreateWord(word=word)
+        return CreateWords(word=word)
 
 class Mutation(graphene.ObjectType):
 
@@ -329,29 +344,29 @@ schema = graphene.Schema(query=Query, mutation=Mutation, types=[Player, Score, W
 #####################
 #Utility function
 #####################
-def updateTopScores(
-        userName:graphene.String(),
-        userScore:graphene.Int()):
+# def updateTopScores(
+#         userName:graphene.String(),
+#         userScore:graphene.Int()):
 
-    """
+#     """
 
 
-    """
-    print("###update top scores###")
-    mutation = '''mutation
-            {
-            updateTopScores
-            (
-                $userName:String!,
-                $userScore:Int!)
-                {
-                    score{
-                        userName
-                        value
-                    }
-                }
-        }'''
+#     """
+#     print("###update top scores###")
+#     mutation = '''mutation
+#             {
+#             updateTopScores
+#             (
+#                 $userName:String!,
+#                 $userScore:Int!)
+#                 {
+#                     score{
+#                         userName
+#                         value
+#                     }
+#                 }
+#         }'''
 
-    schema.execute(mutation,variable_values={'userName':userName, 'userScore':userScore})
+#     schema.execute(mutation,variable_values={'userName':userName, 'userScore':userScore})
 
 

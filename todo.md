@@ -14,3 +14,5 @@
 * Update top fives scores based on new score
 
 * Unit testing to be added
+
+docker exec -it name-of-container bash

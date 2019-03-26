@@ -4,6 +4,7 @@ import StartButton from './StartButton';
 import Timer from './Timer';
 import CreatePlayer from './Player';
 import WordList from './WordList';
+import TopScores from './TopScore';
 import UserList from './UserList';
 import UpdateScore from './Score';
 
@@ -131,7 +132,6 @@ class App extends React.Component {
         users: [],
         error: 'Username should not be blank!!',
       });
-
     } else {
       //Check on event.target.value is to avoid going in this
       //if condition if the user is first time user. Registration time
@@ -158,7 +158,6 @@ class App extends React.Component {
 
   //handleWordSubmit...Starts
   handleWordSubmit = event => {
-
     //choose a word randomly from the input word list
     let randomIndex = Math.floor(Math.random() * Math.floor(100));
     if (this.timerStarted) {
@@ -180,7 +179,6 @@ class App extends React.Component {
           error: '',
         });
       }
-
     } else {
       this.setState({
         view: 'Game',
@@ -297,7 +295,7 @@ class App extends React.Component {
   startCountDown = () => {
     console.log('inside countdown');
     this.intervalHandle = setInterval(this.ticks, 1000);
-    this.secondsRemaining = 10;
+    this.secondsRemaining = 60;
     this.timerStarted = true;
   };
   //startCountDown...Ends
@@ -308,30 +306,36 @@ class App extends React.Component {
     if (this.state.view === 'Register') {
       return (
         <div className="App">
-          <h2>!!!TYPING GAME!!!</h2>
+          <h2 className= "blink">!!!TYPING GAME!!!</h2>
           <UserList onLoadComplete={this.handleUserList} />
-          <div>
-            <h3>{this.state.error}</h3>
-            <h3> New Player </h3>
-            <CreatePlayer
-              handleRegister={this.handleRegister}
-              handleFirstName={this.handleFirstNameChange}
-              handleLastName={this.handleLastNameChange}
-              handleUserName={this.handleUserNameChange}
-            />
-            <h3> Returning Player</h3>
-            <form onSubmit={this.handleUserNameChange}>
-              <label>
-                User Name
-                <input
-                  style={{marginLeft: 10}}
-                  type="text"
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <input type="submit" value="Login" />
-            </form>
+          <div className="Main-div">
+            <div className="score">
+              <h3 className="Heading">Leaderboard</h3>
+              <TopScores />
+            </div>
+            <div className="Register">
+              <h3>{this.state.error}</h3>
+              <h3 className="Heading"> New Player </h3>
+              <CreatePlayer
+                handleRegister={this.handleRegister}
+                handleFirstName={this.handleFirstNameChange}
+                handleLastName={this.handleLastNameChange}
+                handleUserName={this.handleUserNameChange}
+              />
+              <h3 className="Heading"> Returning Player</h3>
+              <form onSubmit={this.handleUserNameChange}>
+                <label>
+                  User Name
+                  <input
+                    style={{marginLeft: 10}}
+                    type="text"
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                <input type="submit" value="Login" />
+              </form>
+            </div>
           </div>
         </div>
       );
@@ -347,11 +351,11 @@ class App extends React.Component {
       return (
         <div className="App">
           <div float="left">
-            <h3>
+            <h3 className="Heading">
               {' '}
               Hello {this.state.firstName} {this.state.lastName}
             </h3>
-            <h2>!!!TYPING GAME!!!</h2>
+            <h2 className="blink">!!!TYPING GAME!!!</h2>
             <p />
             <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
             <StartButton startCountDown={this.startCountDown} />
@@ -376,23 +380,23 @@ class App extends React.Component {
     if (this.state.view === 'Score') {
       return (
         <div className="App">
-          <h1 style={{textAlign: 'center'}}>
+          <h1 className="Heading">
             You scored {this.scores} in this game.{' '}
           </h1>
-          <h2>Hit update if you want to submit this score</h2>
+          <h2 ClassName="Heading">Hit update if you want to submit the scores</h2>
           <UpdateScore
             userName={this.state.userName}
             score={this.scores}
             handleScoreUpdate={this.handleScoreUpdate}
           />
           <button
-            style={{marginTop: 10, marginRight: 10}}
+            className="Button"
             type="submit"
             onClick={this.handleNewGame}>
             New Game
           </button>
           <button
-            style={{marginTop: 10, marginLeft: 10}}
+            className="Button"
             type="submit"
             onClick={this.handleLogout}>
             Logout
