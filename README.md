@@ -11,18 +11,20 @@ An attempt to build a simple typing game using React, Apollo, Flask and Graphql.
    
   * Back-end
     * [Python Flask](http://flask.pocoo.org/docs/0.12/tutorial/) 
-    * Sqlite3 database (in built in Flask)
-    * SqlAlchemy driver for database (in built in Flask)
+    * Sqlite3 database (Flask builtin)
+    * [SqlAlchemy](https://www.sqlalchemy.org/) driver for  the database
     * [Graphql](https://www.howtographql.com/graphql-python/0-introduction/)
     * [Graphene](https://github.com/graphql-python/graphene-sqlalchemy) for using Graphql with Flask
     
-   The front-end consists of single page UI which provides the following functionlality to 
+   The front-end consists of multiple views of a single webpage which provides the following functionality to 
    the user in order:
-   * The user is first asked to register in order to play the game.
+   * The user is first asked to register( for new user)/login(returning user) in order to play the game. 
    * Upon registration, users details will be added to the database.
-   * The user can play the game by starting a 1 minute timer displayed on the screen after registration.
-   * During the game, words will appear on the screen and the user will type the word and submit it.
+   * The user can play the game by starting a 1 minute timer displayed on the screen after registration/login.
+   * During the game, words will appear on the screen and the user will type the word and hit enter.
    * Upon timer expiry, the score will be calculated and displayed on the screen of the user.
+   * The user has the choice to submit the scores, if he/she is happy with scores. 
+   * Once a game finishes, option to start a new game or logout will be also be provided.
 
 The user will be able to see over all top five scores and his/her personal scores.
 
@@ -44,7 +46,7 @@ score in the TopFiveScore table, this table will be updated.
 1. Clone the git repository.
 2. Run the command "docker-compose up" in the  root directory
 3. The frontend and backend of the application are up and running now.
-4. You can access the backend with the [Backend-Link](http://127.0.0.1:5000/graphql) and the [Frontend-Link](http://127.0.0.1:3000/) 
+4. You can access the backend with the [Backend-Link](http://127.0.0.1:5000/graphql) and frontend with the [Frontend-Link](http://127.0.0.1:3000/) 
 
       
   
