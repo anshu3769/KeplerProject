@@ -1,4 +1,4 @@
-# KeplerProject
+# KeplerProject-React-Apollo-Flask-Graphql
 An attempt to build a simple typing game using React, Apollo, Flask and Graphql.
 
 ## Design Details
