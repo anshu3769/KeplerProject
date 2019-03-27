@@ -44,23 +44,57 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
     # Add players
-    player_1 = Player(first_name="Anshu", last_name="Tomar", user_name="Anshu")
+    player_1 = Player(
+        first_name="Anshu",
+        last_name="Tomar",
+        user_name="Anshu"
+    )
+
     db_session.add(player_1)
-    player_2 = Player(first_name="Bunny", last_name="Tomar", user_name="Bunny")
+
+    player_2 = Player(
+        first_name="Bunny",
+        last_name="Tomar",
+        user_name="Bunny"
+    )
     db_session.add(player_2)
 
     # Add scores
-    score_1 = Score(value=10, player=player_1)
+    score_1 = Score(
+        value=10,
+        player=player_1
+    )
+
     db_session.add(score_1)
-    score_2 = Score(value=20, player=player_1)
+
+    score_2 = Score(
+        value=20,
+        player=player_1
+    )
     db_session.add(score_2)
-    score_3 = Score(value=30, player=player_2)
+
+    score_3 = Score(
+        value=30,
+        player=player_2
+    )
     db_session.add(score_3)
-    score_4 = Score(value=40, player=player_2)
+
+    score_4 = Score(
+        value=40,
+        player=player_2
+    )
     db_session.add(score_4)
-    score_5 = Score(value=50, player=player_2)
+
+    score_5 = Score(
+        value=50,
+        player=player_2
+    )
     db_session.add(score_5)
-    score_6 = Score(value=60, player=player_2)
+
+    score_6 = Score(
+        value=60,
+        player=player_2
+    )
     db_session.add(score_6)
 
     # Add words
@@ -71,15 +105,34 @@ def init_db():
         db_session.add(word)
 
     # Add top scores
-    top_score_1 = TopFiveScore(value=60, player=player_2)
+    top_score_1 = TopFiveScore(
+        value=60,
+        player=player_2
+    )
     db_session.add(top_score_1)
-    top_score_2 = TopFiveScore(value=50, player=player_2)
+
+    top_score_2 = TopFiveScore(
+        value=50,
+        player=player_2
+    )
     db_session.add(top_score_2)
-    top_score_3 = TopFiveScore(value=40, player=player_2)
+
+    top_score_3 = TopFiveScore(
+        value=40,
+        player=player_2
+    )
     db_session.add(top_score_3)
-    top_score_4 = TopFiveScore(value=30, player=player_2)
+
+    top_score_4 = TopFiveScore(
+        value=30,
+        player=player_2
+    )
     db_session.add(top_score_4)
-    top_score_5 = TopFiveScore(value=20, player=player_1)
+
+    top_score_5 = TopFiveScore(
+        value=20,
+        player=player_1
+    )
     db_session.add(top_score_5)
 
     db_session.commit()

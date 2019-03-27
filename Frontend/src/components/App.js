@@ -98,6 +98,7 @@ class App extends React.Component {
   //handleLogout..starts
   handleLogout = event => {
     this.setState({view: 'Register'});
+    this.forceUpdate();
   };
 
   //handleFirstNameChange...Starts
@@ -259,7 +260,8 @@ class App extends React.Component {
 
   //ticks...Starts
   ticks = () => {
-    var min = Math.floor(this.secondsRemaining / 60);
+    //var min = Math.floor(this.secondsRemaining / 60);
+    var min = 0;
     var sec = this.secondsRemaining;
 
     this.setState({
@@ -306,7 +308,7 @@ class App extends React.Component {
     if (this.state.view === 'Register') {
       return (
         <div className="App">
-          <h2 className= "blink">!!!TYPING GAME!!!</h2>
+          <h2 className= "floating">!!!TYPING GAME!!!</h2>
           <UserList onLoadComplete={this.handleUserList} />
           <div className="Main-div">
             <div className="score">

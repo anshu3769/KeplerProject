@@ -1,11 +1,7 @@
-# Byte-compiled / optimized / DLL files
-.mypy_cache__
+# Byte-compiled / optimized / DLL file
 __pycache__/
-data/__pycache__/
 *.py[cod]
 *$py.class
 
 # database
 database.sqlite3
-
-

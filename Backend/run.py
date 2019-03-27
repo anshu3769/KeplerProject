@@ -26,7 +26,8 @@ def create_app():
         view_func=GraphQLView.as_view(
             "graphql",
             schema=schema.schema,
-            graphiql=True),
+            graphiql=True
+        ),
     )
 
     @flask_app.teardown_appcontext
@@ -38,6 +39,8 @@ def create_app():
 
 if __name__ == "__main__":
 
+
+    # create some data and add it to the database
     db.init_db()
 
     app = create_app()

@@ -127,11 +127,15 @@ class Query(graphene.ObjectType):
         user_name = graphene.String(),
     )
 
-    def resolve_players(self,info,
-                        first_name:graphene.String() = None,
-                        last_name:graphene.String() = None,
-                        user_name:graphene.String() = None,
-                        *args) -> graphene.List(Player):
+    #@staticmethod
+    def resolve_players(
+            self,
+            info,
+            first_name:graphene.String() = None,
+            last_name:graphene.String() = None,
+            user_name:graphene.String() = None,
+            *args
+    ) -> graphene.List(Player):
 
         logger.debug("Resolving Players")
 
@@ -153,7 +157,7 @@ class Query(graphene.ObjectType):
         return players
 
 
-
+    #@staticmethod
     def resolve_words(self, info, *args) -> graphene.List(Word):
 
         logger.debug("Resolving Words")
@@ -161,17 +165,20 @@ class Query(graphene.ObjectType):
 
         return query.all()
 
-    def resolve_top_scores(self, info, *args) -> graphene.List(Score):
+    #@staticmethod
+    def resolve_top_scores(self,info, *args) -> graphene.List(Score):
 
         logger.debug("Resolving Top Scores")
         query = TopFiveScore.get_query(info,*args)
         return query.all()
 
-
-    def resolve_player_scores(self,
-                              info,
-                              user_name:graphene.String()=None,
-                              *args) -> graphene.List(Score):
+    #@staticmethod
+    def resolve_player_scores(
+            self,
+            info,
+            user_name:graphene.String()=None,
+            *args
+    ) -> graphene.List(Score):
 
         logger.debug("Resolve scores of a player")
         query = models.Score.query
@@ -206,18 +213,24 @@ class CreatePlayer(graphene.Mutation):
 
     player = graphene.Field(lambda: Player)
 
-    def mutate(self,
-               info,
-               first_name:graphene.String(),
-               last_name:graphene.String(),
-               user_name: graphene.String()):
+    def mutate(
+            self,
+            info,
+            first_name:graphene.String(),
+            last_name:graphene.String(),
+            user_name: graphene.String()
+    ):
 
         logger.debug("Creating a Player")
 
         if user_name is "":
             raise ValueError ("User name can not be empty")
         else:
-            player = models.Player(first_name=first_name, last_name=last_name,user_name=user_name)
+            player = models.Player(
+                first_name=first_name,
+                last_name=last_name,
+                user_name=user_name
+            )
 
             db.db_session.add(player)
             db.db_session.commit()
@@ -243,7 +256,10 @@ class UpdateScores(graphene.Mutation):
                user_score:graphene.Int()):
 
         logger.debug("Updating Scores")
-        player = models.Player.query.filter_by(user_name=user_name).one_or_none()
+
+        player = models.Player.query.filter_by(
+            user_name=user_name
+        ).one_or_none()
 
         if player is None:
             raise ValueError ("Exception:: Player not found")
@@ -275,7 +291,11 @@ class UpdateTopScores(graphene.Mutation):
 
     """
     class Arguments:
-        user_name = graphene.String(description="user name the player provided while registration", required=True)
+        user_name = graphene.String(
+            description="user name the player provided while registration",
+            required=True
+        )
+
         user_score = graphene.Int(required=True)
 
         #score_data = ScoreInput(required=True)
@@ -289,7 +309,9 @@ class UpdateTopScores(graphene.Mutation):
 
         logger.debug("Updating top scores")
 
-        current_smallest_top_score = models.TopFiveScore.query.order_by(models.TopFiveScore.value).limit(1)
+        current_smallest_top_score = models.TopFiveScore.query.order_by(
+            models.TopFiveScore.value
+        ).limit(1)
 
         if user_score > current_smallest_top_score[0].value:
             score = models.TopFiveScore(value=user_score,user_name=user_name)
@@ -315,9 +337,11 @@ class CreateWords(graphene.Mutation):
 
     word = graphene.Field(lambda: Word)
 
-    def mutate(self,
-               info,
-               word:graphene.String()):
+    def mutate(
+            self,
+            info,
+            word:graphene.String()
+    ):
         word = models.Word(word=word)
 
         db.db_session.add(word)
@@ -339,34 +363,9 @@ class Mutation(graphene.ObjectType):
 
 
 
-schema = graphene.Schema(query=Query, mutation=Mutation, types=[Player, Score, Word])
-
-#####################
-#Utility function
-#####################
-# def updateTopScores(
-#         userName:graphene.String(),
-#         userScore:graphene.Int()):
-
-#     """
-
-
-#     """
-#     print("###update top scores###")
-#     mutation = '''mutation
-#             {
-#             updateTopScores
-#             (
-#                 $userName:String!,
-#                 $userScore:Int!)
-#                 {
-#                     score{
-#                         userName
-#                         value
-#                     }
-#                 }
-#         }'''
-
-#     schema.execute(mutation,variable_values={'userName':userName, 'userScore':userScore})
-
+schema = graphene.Schema(
+    query=Query,
+    mutation=Mutation,
+    types=[Player, Score, Word]
+)
 

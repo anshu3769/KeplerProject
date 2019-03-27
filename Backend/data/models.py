@@ -41,9 +41,12 @@ class Score(Base):
     value = Column(Integer)
     player = relationship(
         Player,
-        backref=backref('score',
-                        uselist=True,
-                        cascade='delete,all'))
+        backref=backref(
+            'score',
+            uselist=True,
+            cascade='delete,all'
+        )
+    )
 
 class TopFiveScore(Base):
 
@@ -61,7 +64,9 @@ class TopFiveScore(Base):
         Player,
         backref=backref('topfivescore',
                         uselist=True,
-                        cascade='delete,all'))
+                        cascade='delete,all'
+                        )
+    )
 
 
 
