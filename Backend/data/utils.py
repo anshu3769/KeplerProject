@@ -31,7 +31,7 @@ def generateWords():
     #          for j in range(7)
     #          ]
 
-    words = [''.join([alphabets[random.randint(0,25)] for i in range(7)]) for j in range(100)]
+    words = [''.join([alphabets[random.randint(0,25)] for i in range(7)]) for j in range(200)]
     return(words)
 
 

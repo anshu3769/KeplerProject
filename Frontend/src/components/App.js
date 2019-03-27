@@ -32,6 +32,7 @@ class App extends React.Component {
       users: [],
       value: '',
       error: '',
+      queryAgain: false
     };
 
     this.secondsRemaining = 0;
@@ -97,8 +98,10 @@ class App extends React.Component {
 
   //handleLogout..starts
   handleLogout = event => {
-    this.setState({view: 'Register'});
-    this.forceUpdate();
+    this.setState({
+      view: 'Register',
+      queryAgain: true //to call the top score query again to on re re-rendering
+    });
   };
 
   //handleFirstNameChange...Starts
@@ -313,7 +316,7 @@ class App extends React.Component {
           <div className="Main-div">
             <div className="score">
               <h3 className="Heading">Leaderboard</h3>
-              <TopScores />
+              <TopScores query={this.state.queryAgain} />
             </div>
             <div className="Register">
               <h3>{this.state.error}</h3>
@@ -385,7 +388,7 @@ class App extends React.Component {
           <h1 className="Heading">
             You scored {this.scores} in this game.{' '}
           </h1>
-          <h2 ClassName="Heading">Hit update if you want to submit the scores</h2>
+          <h2 className="Heading">Hit update if you want to submit the scores</h2>
           <UpdateScore
             userName={this.state.userName}
             score={this.scores}

@@ -14,7 +14,7 @@ export const TOP_SCORES_QUERY = gql`
 class TopScores extends React.Component {
   render() {
     return (
-      <Query query={TOP_SCORES_QUERY}>
+      <Query query={TOP_SCORES_QUERY} fetchPolicy="cache-and-network">
         {({loading, error, data}) => {
           if (!data || loading) {
             console.log('Loading Scores');
@@ -25,17 +25,8 @@ class TopScores extends React.Component {
             console.log(data);
           }
 
-          //console.log(data.topScores)
-          //const entries = Object.entries(
-          //data.topScores).map(data =>
-          //Object.entries(data))
-
           const entries = data.topScores;
 
-          //console.log(entries)
-          //This is to call the function on parent which
-          //was passed as prop to this component
-          //this.props.onLoadComplete(data);
           return (
             <div>
               <table>
@@ -43,8 +34,10 @@ class TopScores extends React.Component {
                   {entries.map(function(item, key) {
                     return (
                       <tr key={key}>
-                        <td>{item.userName}</td>
-                        <td>{item.value}</td>
+                        <td style={{paddingRight: '50px', paddingLeft: '30px'}}>
+                          {item.userName}
+                        </td>
+                        <td style={{paddingLeft: '50px'}}>{item.value}</td>
                       </tr>
                     );
                   })}

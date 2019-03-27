@@ -170,7 +170,8 @@ class Query(graphene.ObjectType):
 
         logger.debug("Resolving Top Scores")
         query = TopFiveScore.get_query(info,*args)
-        return query.all()
+        return query.order_by(models.TopFiveScore.value.desc()).all()
+
 
     #@staticmethod
     def resolve_player_scores(

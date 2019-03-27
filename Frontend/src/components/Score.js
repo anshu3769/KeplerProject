@@ -15,19 +15,6 @@ const UPDATE_SCORE = gql`
   }
 `;
 
-//Update the top five scores
-// const UPDATE_TOP_SCORES = gql`
-//   mutation UpdateTopScores($userName: String!, $userScore: Int!) {
-//     updateTopScores(userName: $userName, userScore: $userScore) {
-//       score {
-//         userName
-//         value
-//       }
-//     }
-//   }
-// `;
-
-
 
 class UpdateScore extends React.Component {
   render() {
