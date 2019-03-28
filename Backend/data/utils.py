@@ -15,23 +15,8 @@ def generateWords():
 
     """
 
-    #words:List[String] = []
-    #word:String = ""
+    words = [''.join([alphabets[random.randint(0,25)] for _ in range(7)]) for _ in range(200)]
 
-    #generate 100 words of length 8 characters and store them to a list
-    # for i in range(100):
-    #     for j in range(7):
-    #         k:Integer = random.randint(0,25)
-    #         word+=alphabets[k]
-    #     words.append(word)
-    #     word = ""
-
-    # words = [''.join(alphabets[random.randint(0,25)])
-    #          for i in range(100)
-    #          for j in range(7)
-    #          ]
-
-    words = [''.join([alphabets[random.randint(0,25)] for i in range(7)]) for j in range(200)]
     return(words)
 
 

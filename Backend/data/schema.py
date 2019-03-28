@@ -5,13 +5,13 @@ that can be called using Graphql.
 
 """
 
+import logging
 import graphene
 from graphene import relay
 from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType, utils
 from . import models
 from . import database as db
 
-import logging
 logger = logging.getLogger(__name__)
 
 class Player(SQLAlchemyObjectType):

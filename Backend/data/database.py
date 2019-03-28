@@ -9,19 +9,26 @@ application.
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.pool import SingletonThreadPool
 from .utils import generateWords
 
 # create an engine.
 # NOTE: An sqlalchemy engine manages two things
 # 1. Connection pools (max 5 by default)
-# 2. Dialects which tell the sqlalchemy ORM about which database dialect to use. e.g. sqlite3, postgres etc
-engine = create_engine("sqlite:///database.sqlite3", convert_unicode=True)
+# 2. Dialects which tell the sqlalchemy ORM about
+# which database dialect to use. e.g. sqlite3,
+#postgres etc
+ENGINE = create_engine(
+    "sqlite:///database.sqlite3",
+    convert_unicode=True,
+    connect_args={'check_same_thread': False}
+)
 
 
 # Sessions are created to ensure consistency in the database
 # sessionmaker creates a Session class that is used to create a session
 db_session = scoped_session(
-    sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    sessionmaker(autocommit=False, autoflush=False, bind=ENGINE)
 )
 # Base class for our class definitions
 # Meaning not much clear of the declarative class??
@@ -40,8 +47,8 @@ def init_db():
 
     from .models import Player, Score, Word, TopFiveScore
 
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.drop_all(bind=ENGINE)
+    Base.metadata.create_all(bind=ENGINE)
 
     # Add players
     player_1 = Player(
