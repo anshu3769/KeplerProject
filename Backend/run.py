@@ -30,9 +30,9 @@ def create_app():
         ),
     )
 
-    @flask_app.teardown_appcontext
-    def shutdown_session(exception=None):
-        db.db_session.remove()
+    #@flask_app.teardown_appcontext
+    #def shutdown_session():
+    #    db.db_session.remove()
 
     return flask_app
 
