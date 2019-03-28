@@ -32,7 +32,6 @@ class App extends React.Component {
       users: [],
       value: '',
       error: '',
-      queryAgain: false
     };
 
     this.secondsRemaining = 0;
@@ -100,7 +99,8 @@ class App extends React.Component {
   handleLogout = event => {
     this.setState({
       view: 'Register',
-      queryAgain: true //to call the top score query again to on re re-rendering
+      minutes: '1',
+      seconds: '00',
     });
   };
 
@@ -135,6 +135,8 @@ class App extends React.Component {
         lastName: '',
         users: [],
         error: 'Username should not be blank!!',
+        minutes: '1',
+        seconds: '00',
       });
     } else {
       //Check on event.target.value is to avoid going in this
@@ -147,6 +149,8 @@ class App extends React.Component {
             view: 'Register',
             error: 'Not a registered user!!',
             value: '',
+            minutes: '1',
+            seconds: '00',
           });
         } else {
           this.setState({
@@ -213,10 +217,6 @@ class App extends React.Component {
   handleRegister = () => {
     console.log('handleRegister');
 
-    console.log('firstName ', this.state.firstName);
-    console.log('lastName ', this.state.lastName);
-    console.log('userName ', this.state.userName);
-
     if (this.state.userName === '') {
       this.setState({
         view: 'Register',
@@ -224,18 +224,23 @@ class App extends React.Component {
         lastName: '',
         users: [],
         error: 'Username should not be blank!!!!',
+        minutes: '1',
+        seconds: '00',
       });
     } else if (this.isUniqueUser()) {
       console.log('new user');
       this.setState({
         view: 'Loading',
         error: '',
-        users: this.state.users.push(this.state.userName),
+        //users: this.state.users.push(this.state.userName),
+        users: [...this.state.users,this.state.userName],
       });
     } else {
       this.setState({
         view: 'Register',
         error: 'Username already taken!!!!',
+        minutes: '1',
+        seconds: '00',
       });
     }
   };
@@ -311,12 +316,12 @@ class App extends React.Component {
     if (this.state.view === 'Register') {
       return (
         <div className="App">
-          <h2 className= "floating">!!!TYPING GAME!!!</h2>
+          <h2 className="floating">!!!TYPING GAME!!!</h2>
           <UserList onLoadComplete={this.handleUserList} />
           <div className="Main-div">
             <div className="score">
               <h3 className="Heading">Leaderboard</h3>
-              <TopScores query={this.state.queryAgain} />
+              <TopScores />
             </div>
             <div className="Register">
               <h3>{this.state.error}</h3>
@@ -385,25 +390,19 @@ class App extends React.Component {
     if (this.state.view === 'Score') {
       return (
         <div className="App">
-          <h1 className="Heading">
-            You scored {this.scores} in this game.{' '}
-          </h1>
-          <h2 className="Heading">Hit update if you want to submit the scores</h2>
+          <h1 className="Heading">You scored {this.scores} in this game. </h1>
+          <h2 className="Heading">
+            Hit update if you want to submit the scores
+          </h2>
           <UpdateScore
             userName={this.state.userName}
             score={this.scores}
             handleScoreUpdate={this.handleScoreUpdate}
           />
-          <button
-            className="Button"
-            type="submit"
-            onClick={this.handleNewGame}>
+          <button className="Button" type="submit" onClick={this.handleNewGame}>
             New Game
           </button>
-          <button
-            className="Button"
-            type="submit"
-            onClick={this.handleLogout}>
+          <button className="Button" type="submit" onClick={this.handleLogout}>
             Logout
           </button>
         </div>

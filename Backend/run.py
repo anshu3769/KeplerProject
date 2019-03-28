@@ -44,6 +44,8 @@ if __name__ == "__main__":
     db.init_db()
 
     app = create_app()
+
+    #If cross origin resource sharing is not enabled, forntend will not be able to access the resource.
     CORS(app, resources={r"/graphql": {"origins": "*"}})
 
     app.run(host="0.0.0.0")
