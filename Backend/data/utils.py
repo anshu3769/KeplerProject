@@ -15,7 +15,10 @@ def generateWords():
 
     """
 
-    words = [''.join([alphabets[random.randint(0,25)] for _ in range(7)]) for _ in range(200)]
+    words = [''.join([alphabets[random.randint(0,25)]
+                      for _ in range(7)])
+             for _ in range(200)
+             ]
 
     return(words)
 
