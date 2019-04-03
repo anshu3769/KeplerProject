@@ -8,7 +8,11 @@ that can be called using Graphql.
 import logging
 import graphene
 from graphene import relay
-from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType, utils
+from graphene_sqlalchemy import (
+    SQLAlchemyConnectionField,
+    SQLAlchemyObjectType,
+    utils,
+)
 from . import models
 from . import database as db
 
@@ -144,14 +148,14 @@ class Query(graphene.ObjectType):
         if all(item is None for item in [first_name, last_name, user_name]):
             players = query.all()
 
-        elif first_name is not None:
+        elif first_name:
             players = query.filter_by(first_name=first_name)
 
 
-        elif last_name is not None:
+        elif last_name:
             players = query.filter_by(last_name=last_name)
 
-        elif user_name is not None:
+        elif user_name:
             players = query.filter_by(user_name=user_name)
 
         return players
@@ -251,10 +255,12 @@ class UpdateScores(graphene.Mutation):
 
     score = graphene.Field(lambda: Score)
 
-    def mutate(self,
-               info,
-               user_name:graphene.String(),
-               user_score:graphene.Int()):
+    def mutate(
+            self,
+            info,
+            user_name:graphene.String(),
+            user_score:graphene.Int(),
+    ):
 
         logger.debug("Updating Scores")
 
@@ -262,7 +268,7 @@ class UpdateScores(graphene.Mutation):
             user_name=user_name
         ).one_or_none()
 
-        if player is None:
+        if not player:
             raise ValueError ("Exception:: Player not found")
         else:
             score=models.Score(value=user_score)
@@ -274,7 +280,7 @@ class UpdateScores(graphene.Mutation):
             db.db_session.commit()
 
             #updateTopScores(user_name,user_score)
-            UpdateTopScores.mutate(self,info,user_name,user_score)
+            UpdateTopScores.mutate(self, info, user_name, user_score)
 
             return UpdateScores(score=score)
 
@@ -303,10 +309,12 @@ class UpdateTopScores(graphene.Mutation):
 
     score = graphene.Field(lambda: TopFiveScore)
 
-    def mutate(self,
-               info,
-               user_name:graphene.String(),
-               user_score:graphene.Int()):
+    def mutate(
+            self,
+            info,
+            user_name:graphene.String(),
+            user_score:graphene.Int()
+    ):
 
         logger.debug("Updating top scores")
 
@@ -315,7 +323,7 @@ class UpdateTopScores(graphene.Mutation):
         ).limit(1)
 
         if user_score > current_smallest_top_score[0].value:
-            score = models.TopFiveScore(value=user_score,user_name=user_name)
+            score = models.TopFiveScore(value=user_score, user_name=user_name)
 
             db.db_session.delete(current_smallest_top_score[0])
             db.db_session.add(score)
@@ -363,8 +371,8 @@ class Mutation(graphene.ObjectType):
     update_top_scores = UpdateTopScores.Field()
 
 
-
-schema = graphene.Schema(
+#to do in caps
+SCHEMA = graphene.Schema(
     query=Query,
     mutation=Mutation,
     types=[Player, Score, Word]

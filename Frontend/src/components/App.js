@@ -28,7 +28,7 @@ class App extends React.Component {
       firstName: '',
       lastName: '',
       userName: '',
-      //  scores: 0,
+      scores: 0,
       users: [],
       value: '',
       error: '',
@@ -40,7 +40,7 @@ class App extends React.Component {
     this.index = -1;
     this.outputWords = [];
     this.indicesUsedInThisGame = [];
-    this.scores = 0;
+    //this.scores = 0;
     this.timerStared = false;
   }
   //Constructor...Ends
@@ -64,7 +64,7 @@ class App extends React.Component {
         this.outputWords[index] ===
         this.inputWords[this.indicesUsedInThisGame[i]].word
       )
-        this.scores += 10;
+        this.state.scores += 10;
       index++;
     }
     //clear the indices list for next game
@@ -91,6 +91,7 @@ class App extends React.Component {
       view: 'Game',
       seconds: '00',
       minutes: '1',
+      scores: 0
     });
   };
   //handleNewGame..ends
@@ -101,6 +102,7 @@ class App extends React.Component {
       view: 'Register',
       minutes: '1',
       seconds: '00',
+      scores: 0
     });
   };
 
@@ -390,13 +392,13 @@ class App extends React.Component {
     if (this.state.view === 'Score') {
       return (
         <div className="App">
-          <h1 className="Heading">You scored {this.scores} in this game. </h1>
+          <h1 className="Heading">You scored {this.state.scores} in this game. </h1>
           <h2 className="Heading">
             Hit update if you want to submit the scores
           </h2>
           <UpdateScore
             userName={this.state.userName}
-            score={this.scores}
+            score={this.state.scores}
             handleScoreUpdate={this.handleScoreUpdate}
           />
           <button className="Button" type="submit" onClick={this.handleNewGame}>

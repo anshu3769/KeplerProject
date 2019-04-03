@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "kip_pylint_plugin"
+version = "0.2.0"
+description = "Pylint plugin for the Kepler Intelligence Platform (KIP)"
+authors = ["Sam Roeca <sroeca@keplergrp.com>"]
+include = ["pylint_reports_enabled.txt"]
+classifiers = [
+  "Topic :: Software Development :: Linters",
+  "Topic :: Software Development :: Linters :: Plugins",
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+pylint = "^2.3"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.670.0"
+yapf = "^0.26.0"
+pre-commit = "^1.14"
+tox = "^3.7"
+pytest = "^4.3"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
