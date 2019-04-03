@@ -33,313 +33,6 @@ snapshots['test_player_lastnames_query 1'] = {
     }
 }
 
-snapshots['test_words_query 1'] = {
-    'data': {
-        'words': [
-            {
-                'word': 'icrbljo'
-            },
-            {
-                'word': 'fdfexid'
-            },
-            {
-                'word': 'hxbbyhl'
-            },
-            {
-                'word': 'tswlhyi'
-            },
-            {
-                'word': 'weeazaz'
-            },
-            {
-                'word': 'qulglqs'
-            },
-            {
-                'word': 'lhpvazw'
-            },
-            {
-                'word': 'pzjogbo'
-            },
-            {
-                'word': 'oybnxpu'
-            },
-            {
-                'word': 'qousaut'
-            },
-            {
-                'word': 'pjbsiwl'
-            },
-            {
-                'word': 'aobnhtr'
-            },
-            {
-                'word': 'clmxsnr'
-            },
-            {
-                'word': 'uiugddd'
-            },
-            {
-                'word': 'hncshkq'
-            },
-            {
-                'word': 'bsebzbf'
-            },
-            {
-                'word': 'wenahfu'
-            },
-            {
-                'word': 'lilscza'
-            },
-            {
-                'word': 'nallewg'
-            },
-            {
-                'word': 'gfhdaly'
-            },
-            {
-                'word': 'nervbmd'
-            },
-            {
-                'word': 'kmsbyvl'
-            },
-            {
-                'word': 'pvnsxbv'
-            },
-            {
-                'word': 'zmdlylt'
-            },
-            {
-                'word': 'khqjndd'
-            },
-            {
-                'word': 'fvelkml'
-            },
-            {
-                'word': 'ewzaqvt'
-            },
-            {
-                'word': 'vtfalby'
-            },
-            {
-                'word': 'vnbdokh'
-            },
-            {
-                'word': 'zadrefx'
-            },
-            {
-                'word': 'jfryykc'
-            },
-            {
-                'word': 'pliowbw'
-            },
-            {
-                'word': 'lyoegbg'
-            },
-            {
-                'word': 'hjkysac'
-            },
-            {
-                'word': 'gmatttv'
-            },
-            {
-                'word': 'ymeigpu'
-            },
-            {
-                'word': 'zzdlhmo'
-            },
-            {
-                'word': 'dvtouvx'
-            },
-            {
-                'word': 'cdgpcwu'
-            },
-            {
-                'word': 'mjijssg'
-            },
-            {
-                'word': 'jzdjbkj'
-            },
-            {
-                'word': 'dnchjyi'
-            },
-            {
-                'word': 'ipwwpne'
-            },
-            {
-                'word': 'xmwrkiq'
-            },
-            {
-                'word': 'cdqhykf'
-            },
-            {
-                'word': 'ziaontj'
-            },
-            {
-                'word': 'jxmmsfm'
-            },
-            {
-                'word': 'lomzuks'
-            },
-            {
-                'word': 'wqqzryh'
-            },
-            {
-                'word': 'kduohky'
-            },
-            {
-                'word': 'kdvtsxy'
-            },
-            {
-                'word': 'okcloku'
-            },
-            {
-                'word': 'hpcszdd'
-            },
-            {
-                'word': 'fbelsiw'
-            },
-            {
-                'word': 'gxjpmse'
-            },
-            {
-                'word': 'yyfydxq'
-            },
-            {
-                'word': 'fcymnqt'
-            },
-            {
-                'word': 'jpgbyxr'
-            },
-            {
-                'word': 'fzkrcog'
-            },
-            {
-                'word': 'zsxnmyg'
-            },
-            {
-                'word': 'gsdqqhu'
-            },
-            {
-                'word': 'cswxoxn'
-            },
-            {
-                'word': 'uregliq'
-            },
-            {
-                'word': 'pfzwmnq'
-            },
-            {
-                'word': 'yduhzle'
-            },
-            {
-                'word': 'myzcfsr'
-            },
-            {
-                'word': 'heopfpz'
-            },
-            {
-                'word': 'rucalcn'
-            },
-            {
-                'word': 'aptloam'
-            },
-            {
-                'word': 'cqulcgq'
-            },
-            {
-                'word': 'gubjbnn'
-            },
-            {
-                'word': 'wlwfcgk'
-            },
-            {
-                'word': 'cmhtour'
-            },
-            {
-                'word': 'nzpwsco'
-            },
-            {
-                'word': 'flipzip'
-            },
-            {
-                'word': 'zmgnzrp'
-            },
-            {
-                'word': 'byikegp'
-            },
-            {
-                'word': 'zjjkqrv'
-            },
-            {
-                'word': 'ihjktzs'
-            },
-            {
-                'word': 'boupacc'
-            },
-            {
-                'word': 'ajyzlws'
-            },
-            {
-                'word': 'uhmustx'
-            },
-            {
-                'word': 'zgejhjn'
-            },
-            {
-                'word': 'gmaucix'
-            },
-            {
-                'word': 'ruxbdzu'
-            },
-            {
-                'word': 'ivmcjtg'
-            },
-            {
-                'word': 'rkgfmuw'
-            },
-            {
-                'word': 'gwmmywj'
-            },
-            {
-                'word': 'bcsldwt'
-            },
-            {
-                'word': 'woivvui'
-            },
-            {
-                'word': 'bjhkspa'
-            },
-            {
-                'word': 'cfqoczs'
-            },
-            {
-                'word': 'tzgcrqg'
-            },
-            {
-                'word': 'htktzfn'
-            },
-            {
-                'word': 'kspfbcz'
-            },
-            {
-                'word': 'bewjhbh'
-            },
-            {
-                'word': 'jxjmjou'
-            },
-            {
-                'word': 'uzefbvd'
-            },
-            {
-                'word': 'kylliqj'
-            },
-            {
-                'word': 'qklqliy'
-            }
-        ]
-    }
-}
-
 snapshots['test_player_by_firstname_query 1'] = {
     'data': {
         'players': [
@@ -361,6 +54,640 @@ snapshots['test_player_by_lastname_query 1'] = {
             {
                 'firstName': 'Bunny',
                 'lastName': 'Tomar'
+            }
+        ]
+    }
+}
+
+snapshots['test_words_query 1'] = {
+    'data': {
+        'words': [
+            {
+                'word': 'qyqqblm'
+            },
+            {
+                'word': 'kcdbusi'
+            },
+            {
+                'word': 'sdrymhx'
+            },
+            {
+                'word': 'ovckiyz'
+            },
+            {
+                'word': 'lrorqqz'
+            },
+            {
+                'word': 'tehdssi'
+            },
+            {
+                'word': 'awumdmp'
+            },
+            {
+                'word': 'qtuyldt'
+            },
+            {
+                'word': 'ksoxwfk'
+            },
+            {
+                'word': 'ldwawni'
+            },
+            {
+                'word': 'bmmmple'
+            },
+            {
+                'word': 'dxyspqf'
+            },
+            {
+                'word': 'zfojoyh'
+            },
+            {
+                'word': 'onuagup'
+            },
+            {
+                'word': 'egqewzl'
+            },
+            {
+                'word': 'imbefrm'
+            },
+            {
+                'word': 'zyqftmk'
+            },
+            {
+                'word': 'bwtxxux'
+            },
+            {
+                'word': 'ttknyxc'
+            },
+            {
+                'word': 'txajehl'
+            },
+            {
+                'word': 'xxorjzb'
+            },
+            {
+                'word': 'tufoxiw'
+            },
+            {
+                'word': 'psuibkt'
+            },
+            {
+                'word': 'oogwwbo'
+            },
+            {
+                'word': 'zcxsxqk'
+            },
+            {
+                'word': 'ukggssb'
+            },
+            {
+                'word': 'lkslrfy'
+            },
+            {
+                'word': 'aacezfp'
+            },
+            {
+                'word': 'afhuoto'
+            },
+            {
+                'word': 'fqeclhb'
+            },
+            {
+                'word': 'mrqippj'
+            },
+            {
+                'word': 'dhkpaje'
+            },
+            {
+                'word': 'nrpthgk'
+            },
+            {
+                'word': 'yvjnmdc'
+            },
+            {
+                'word': 'jseorzc'
+            },
+            {
+                'word': 'osmjrzt'
+            },
+            {
+                'word': 'hufsyat'
+            },
+            {
+                'word': 'zaomhxh'
+            },
+            {
+                'word': 'qqluimh'
+            },
+            {
+                'word': 'juvrtya'
+            },
+            {
+                'word': 'kdoskxv'
+            },
+            {
+                'word': 'gtyteeu'
+            },
+            {
+                'word': 'jwkcerd'
+            },
+            {
+                'word': 'emlbzbu'
+            },
+            {
+                'word': 'kxqthiq'
+            },
+            {
+                'word': 'hkaluoo'
+            },
+            {
+                'word': 'iuzcmjn'
+            },
+            {
+                'word': 'gdhityn'
+            },
+            {
+                'word': 'kniaqra'
+            },
+            {
+                'word': 'yatniif'
+            },
+            {
+                'word': 'raoedrl'
+            },
+            {
+                'word': 'qqenwie'
+            },
+            {
+                'word': 'plonwnf'
+            },
+            {
+                'word': 'rduiijm'
+            },
+            {
+                'word': 'ehpbzsm'
+            },
+            {
+                'word': 'audbrjv'
+            },
+            {
+                'word': 'xumtfzq'
+            },
+            {
+                'word': 'bpvnjov'
+            },
+            {
+                'word': 'nseluae'
+            },
+            {
+                'word': 'umssbzx'
+            },
+            {
+                'word': 'etolahp'
+            },
+            {
+                'word': 'tyaxrxs'
+            },
+            {
+                'word': 'iydoude'
+            },
+            {
+                'word': 'etwgzbo'
+            },
+            {
+                'word': 'juqoono'
+            },
+            {
+                'word': 'wsakncv'
+            },
+            {
+                'word': 'yfgtwkb'
+            },
+            {
+                'word': 'mbisudq'
+            },
+            {
+                'word': 'cnxhhki'
+            },
+            {
+                'word': 'rlagnuq'
+            },
+            {
+                'word': 'ljvyihb'
+            },
+            {
+                'word': 'uudqrgm'
+            },
+            {
+                'word': 'tjdbben'
+            },
+            {
+                'word': 'psdkucq'
+            },
+            {
+                'word': 'fllvjyq'
+            },
+            {
+                'word': 'srzjjyu'
+            },
+            {
+                'word': 'qtvfcml'
+            },
+            {
+                'word': 'ylszykx'
+            },
+            {
+                'word': 'cmqzwsk'
+            },
+            {
+                'word': 'grohlkk'
+            },
+            {
+                'word': 'wstcuxp'
+            },
+            {
+                'word': 'znwpwpn'
+            },
+            {
+                'word': 'oclodjb'
+            },
+            {
+                'word': 'oeysbbf'
+            },
+            {
+                'word': 'ehsbbos'
+            },
+            {
+                'word': 'velshob'
+            },
+            {
+                'word': 'szdgujz'
+            },
+            {
+                'word': 'hhovxer'
+            },
+            {
+                'word': 'uiahjwf'
+            },
+            {
+                'word': 'vcaweky'
+            },
+            {
+                'word': 'uxmwavk'
+            },
+            {
+                'word': 'yfhvnju'
+            },
+            {
+                'word': 'mnkehgh'
+            },
+            {
+                'word': 'mnuudjp'
+            },
+            {
+                'word': 'xcnqbrc'
+            },
+            {
+                'word': 'tnausoi'
+            },
+            {
+                'word': 'nhvtqvj'
+            },
+            {
+                'word': 'etaxsse'
+            },
+            {
+                'word': 'jujvfwi'
+            },
+            {
+                'word': 'bgakwty'
+            },
+            {
+                'word': 'uqouott'
+            },
+            {
+                'word': 'zvonksx'
+            },
+            {
+                'word': 'pmdxgbu'
+            },
+            {
+                'word': 'mqdnjfk'
+            },
+            {
+                'word': 'fbixmtt'
+            },
+            {
+                'word': 'zmhzggi'
+            },
+            {
+                'word': 'rwholhu'
+            },
+            {
+                'word': 'aibiiyu'
+            },
+            {
+                'word': 'whsdofu'
+            },
+            {
+                'word': 'qgdlelg'
+            },
+            {
+                'word': 'yrclgto'
+            },
+            {
+                'word': 'scukhcf'
+            },
+            {
+                'word': 'rnbbkwu'
+            },
+            {
+                'word': 'fdotsdw'
+            },
+            {
+                'word': 'ugqjdut'
+            },
+            {
+                'word': 'kdqdoaf'
+            },
+            {
+                'word': 'wpzaxaz'
+            },
+            {
+                'word': 'ubyjmbf'
+            },
+            {
+                'word': 'syppcvj'
+            },
+            {
+                'word': 'sjyazgw'
+            },
+            {
+                'word': 'woexcvb'
+            },
+            {
+                'word': 'nokerak'
+            },
+            {
+                'word': 'bwqxaqu'
+            },
+            {
+                'word': 'qdkdpbl'
+            },
+            {
+                'word': 'qgzencs'
+            },
+            {
+                'word': 'uvrywgz'
+            },
+            {
+                'word': 'dielpjz'
+            },
+            {
+                'word': 'wzzahay'
+            },
+            {
+                'word': 'zrlsuvp'
+            },
+            {
+                'word': 'zifpdpg'
+            },
+            {
+                'word': 'sqmqvbk'
+            },
+            {
+                'word': 'bhhwkoe'
+            },
+            {
+                'word': 'lwyuelo'
+            },
+            {
+                'word': 'tebspck'
+            },
+            {
+                'word': 'gpfktfx'
+            },
+            {
+                'word': 'sxmpxvl'
+            },
+            {
+                'word': 'ysxqupt'
+            },
+            {
+                'word': 'ztzuwew'
+            },
+            {
+                'word': 'qdtqgpa'
+            },
+            {
+                'word': 'hbpcfip'
+            },
+            {
+                'word': 'doopmhq'
+            },
+            {
+                'word': 'vkrpcuu'
+            },
+            {
+                'word': 'esluyiq'
+            },
+            {
+                'word': 'ilegiie'
+            },
+            {
+                'word': 'xspjnvd'
+            },
+            {
+                'word': 'gygnnbw'
+            },
+            {
+                'word': 'mfeqrkt'
+            },
+            {
+                'word': 'trapqni'
+            },
+            {
+                'word': 'diuyvca'
+            },
+            {
+                'word': 'wkbjiev'
+            },
+            {
+                'word': 'vgqhcnp'
+            },
+            {
+                'word': 'bcnmtid'
+            },
+            {
+                'word': 'znfdxkg'
+            },
+            {
+                'word': 'upskovq'
+            },
+            {
+                'word': 'mhspbxj'
+            },
+            {
+                'word': 'wqrbyas'
+            },
+            {
+                'word': 'iylsidj'
+            },
+            {
+                'word': 'jpjwgfq'
+            },
+            {
+                'word': 'svpndca'
+            },
+            {
+                'word': 'mvjaotz'
+            },
+            {
+                'word': 'lcgcjzu'
+            },
+            {
+                'word': 'ejzipaa'
+            },
+            {
+                'word': 'lcsoayj'
+            },
+            {
+                'word': 'itfhijb'
+            },
+            {
+                'word': 'abyykrg'
+            },
+            {
+                'word': 'jgadlrv'
+            },
+            {
+                'word': 'ehnictn'
+            },
+            {
+                'word': 'xsdojcc'
+            },
+            {
+                'word': 'odvmuvh'
+            },
+            {
+                'word': 'qkxvtck'
+            },
+            {
+                'word': 'bxbnlib'
+            },
+            {
+                'word': 'rhugdai'
+            },
+            {
+                'word': 'xpvszya'
+            },
+            {
+                'word': 'qoxcudv'
+            },
+            {
+                'word': 'tjbkdqc'
+            },
+            {
+                'word': 'aarwbai'
+            },
+            {
+                'word': 'otcwpms'
+            },
+            {
+                'word': 'rnvenjj'
+            },
+            {
+                'word': 'bwqfryy'
+            },
+            {
+                'word': 'tmgjqnp'
+            },
+            {
+                'word': 'noymcjl'
+            },
+            {
+                'word': 'ripujjh'
+            },
+            {
+                'word': 'jvrmqtl'
+            },
+            {
+                'word': 'bzjlpjg'
+            },
+            {
+                'word': 'lcpoelb'
+            },
+            {
+                'word': 'mfgnezw'
+            },
+            {
+                'word': 'fenncni'
+            },
+            {
+                'word': 'itbmzut'
+            },
+            {
+                'word': 'teshfgw'
+            },
+            {
+                'word': 'psqezzt'
+            },
+            {
+                'word': 'aoyehyp'
+            },
+            {
+                'word': 'vhqylgk'
+            },
+            {
+                'word': 'xmzkrfb'
+            },
+            {
+                'word': 'ptmklaw'
+            },
+            {
+                'word': 'uzmybig'
+            },
+            {
+                'word': 'kcmvwsi'
+            },
+            {
+                'word': 'eqtwcqs'
+            },
+            {
+                'word': 'zqacrkk'
+            },
+            {
+                'word': 'hqdqfqi'
+            },
+            {
+                'word': 'ecbapkr'
+            }
+        ]
+    }
+}
+
+snapshots['test_top_scores_query 1'] = {
+    'data': {
+        'topScores': [
+            {
+                'userName': 'Bunny',
+                'value': 60
+            },
+            {
+                'userName': 'Bunny',
+                'value': 50
+            },
+            {
+                'userName': 'Bunny',
+                'value': 40
+            },
+            {
+                'userName': 'Bunny',
+                'value': 30
+            },
+            {
+                'userName': 'Anshu',
+                'value': 20
             }
         ]
     }

@@ -13,7 +13,6 @@ def generateWords():
     output: List of words
 
     """
-
     words = [
         ''.join([
             alphabets[random.randint(0,25)]
@@ -24,6 +23,3 @@ def generateWords():
 
     return(words)
 
-
-#words = generateWords()
-#print(words)
